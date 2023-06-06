@@ -1,7 +1,14 @@
+buildscript {
+    ext {
+        restdocsVersion = '0.18.2'
+    }
+}
+
 plugins {
     id 'java'
     id 'org.springframework.boot' version '3.1.0'
     id 'io.spring.dependency-management' version '1.1.0'
+    id 'com.epages.restdocs-api-spec' version "${restdocsVersion}"
 }
 
 group = 'com.market'
@@ -21,12 +28,54 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.hibernate:hibernate-validator:8.0.0.Final'
     implementation 'org.springframework.session:spring-session-core'
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.1.0'
+
     compileOnly 'org.projectlombok:lombok'
+
+    runtimeOnly 'com.mysql:mysql-connector-j'
+
     annotationProcessor 'org.projectlombok:lombok'
+
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testImplementation "com.epages:restdocs-api-spec-mockmvc:${restdocsVersion}"
 }
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+openapi3 {
+    server = 'http://localhost:8080'
+    description = 'API description'
+    version = '0.1.0'
+    outputFileNamePrefix = 'openapi3'
+    outputDirectory = "${project.buildDir}/resources/main/static/docs"
+    format = 'yaml'
+}
+
+tasks.register('generateOpenApi') {
+    dependsOn 'clean'
+    dependsOn 'openapi3'
+
+    doFirst {
+        delete file('src/main/resources/static/docs/')
+    }
+
+    doLast {
+        copy {
+            from "${project.buildDir}/resources/main/static/docs/"
+            into 'src/main/resources/static/docs/'
+        }
+    }
+}
+
+bootRun {
+    dependsOn 'generateOpenApi'
+}
+
+bootJar {
+    dependsOn 'openapi3'
 }
