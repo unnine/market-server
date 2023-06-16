@@ -1,9 +1,11 @@
 package com.market.member.application;
 
 import com.market.member.dto.CustomerDto;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class CustomerApplicationService {
 
 

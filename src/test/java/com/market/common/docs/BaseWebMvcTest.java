@@ -1,8 +1,11 @@
 package com.market.common.docs;
 
 import com.epages.restdocs.apispec.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.json.JsonParseException;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.restdocs.RestDocumentationContextProvider;
@@ -21,13 +24,18 @@ import java.util.function.Consumer;
 @ExtendWith(RestDocumentationExtension.class)
 public class BaseWebMvcTest {
 
-    protected MockMvc mockMvc;
+    private final ObjectMapper objectMapper = new ObjectMapper();
+    private MockMvc mockMvc;
 
     @BeforeEach
     void setUp(WebApplicationContext webApplicationContext, RestDocumentationContextProvider restDocumentation) {
         this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
                 .apply(MockMvcRestDocumentation.documentationConfiguration(restDocumentation))
                 .build();
+    }
+
+    protected MockMvc mockMvc() {
+        return mockMvc;
     }
 
     protected RestDocumentationResultHandler documentation(String identifier, Consumer<ResourceSnippetParametersBuilder> builderConfigurer) {
@@ -46,6 +54,14 @@ public class BaseWebMvcTest {
         ResourceSnippetParametersBuilder builder = ResourceSnippetParameters.builder().summary(identifier + " API");
         builderConfigurer.accept(builder);
         return builder.build();
+    }
+
+    protected String toJson(Object o) {
+        try {
+            return objectMapper.writeValueAsString(o);
+        } catch (JsonProcessingException e) {
+            throw new JsonParseException(e);
+        }
     }
 
 }
