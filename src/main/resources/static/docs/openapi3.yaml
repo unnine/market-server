@@ -6,6 +6,86 @@ info:
 servers:
 - url: http://localhost:8080
 tags: []
-paths: {}
+paths:
+  /v1/customers:
+    get:
+      tags:
+      - 고객
+      summary: 고객 목록 API
+      description: 고객 목록 API
+      operationId: 고객 목록
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1-customers486549215'
+              examples:
+                고객 목록:
+                  value: "[ ]"
+    post:
+      tags:
+      - 고객
+      summary: 고객 신규 등록 API
+      description: 고객 신규 등록 API
+      operationId: 고객 신규 등록
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDto'
+            examples:
+              고객 신규 등록:
+                value: "{\r\n  \"id\" : null,\r\n  \"email\" : \"test@email.com\"\
+                  ,\r\n  \"name\" : \"test name\",\r\n  \"phone\" : \"01012345678\"\
+                  \r\n}"
+      responses:
+        "200":
+          description: "200"
+  /v1/customers/1:
+    get:
+      tags:
+      - 고객
+      summary: 고객 상세 정보 API
+      description: 고객 상세 정보 API
+      operationId: 고객 상세 정보
+      responses:
+        "200":
+          description: "200"
+    patch:
+      tags:
+      - 고객
+      summary: 고객 정보 수정 API
+      description: 고객 정보 수정 API
+      operationId: 고객 정보 수정
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerDto'
+            examples:
+              고객 정보 수정:
+                value: "{\r\n  \"id\" : 1,\r\n  \"email\" : \"test@email.com\",\r\n\
+                  \  \"name\" : \"test name\",\r\n  \"phone\" : \"01012345678\"\r\n\
+                  }"
+      responses:
+        "200":
+          description: "200"
 components:
-  schemas: {}
+  schemas:
+    CustomerDto:
+      title: CustomerDto
+      type: object
+      properties:
+        phone:
+          type: string
+          description: 연락처
+        name:
+          type: string
+          description: 고객명
+        email:
+          type: string
+          description: 이메일
+    v1-customers486549215:
+      type: object
