@@ -64,13 +64,11 @@ openapi3 {
     version = '0.1.0'
     outputFileNamePrefix = 'openapi3'
     outputDirectory = "${project.buildDir}/resources/main/static/docs"
+
     format = 'yaml'
 }
 
 tasks.register('generateOpenApi') {
-    dependsOn 'clean'
-    dependsOn 'openapi3'
-
     doFirst {
         delete file('src/main/resources/static/docs/')
     }
@@ -83,11 +81,8 @@ tasks.register('generateOpenApi') {
     }
 }
 
-bootRun {
-    dependsOn 'generateOpenApi'
-}
-
-bootJar {
-    dependsOn 'openapi3'
+tasks.named("build") {
+    finalizedBy 'openapi3'
+    finalizedBy 'generateOpenApi'
 }
 //

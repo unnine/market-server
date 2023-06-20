@@ -1,7 +1,9 @@
 package com.market.member.api;
 
 import com.market.common.docs.BaseWebMvcTest;
+import com.market.common.docs.Documentation;
 import com.market.member.application.CustomerApplicationService;
+import com.market.member.domain.vo.Phone;
 import com.market.member.dto.CustomerDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -14,6 +16,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import static com.epages.restdocs.apispec.Schema.schema;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -32,13 +35,11 @@ class CustomerControllerTest extends BaseWebMvcTest {
         // then
         actions.andExpect(status().isOk());
 
-        actions.andDo(documentation("고객 목록", builder -> builder
-                .tag(tag)
-                .build()));
+        actions.andDo(new Documentation(tag, "고객 목록").write());
     }
 
     @Test
-    void getCustomter_call_success() throws Exception {
+    void getCustomer_call_success() throws Exception {
         // when
         ResultActions actions = mockMvc().perform(get(mappingPath + "/1")
                 .contentType(MediaType.APPLICATION_JSON));
@@ -46,9 +47,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
         // then
         actions.andExpect(status().isOk());
 
-        actions.andDo(documentation("고객 상세 정보", builder -> builder
-                .tag(tag)
-                .build()));
+        actions.andDo(new Documentation(tag, "고객 상세 정보").write());
     }
 
     @Test
@@ -57,7 +56,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
         CustomerDto param = CustomerDto.builder()
                 .name("test name")
                 .email("test@email.com")
-                .phone("01012345678")
+                .phone(new Phone("01012345678"))
                 .build();
         String paramJson = toJson(param);
 
@@ -69,16 +68,18 @@ class CustomerControllerTest extends BaseWebMvcTest {
         // then
         actions.andExpect(status().isOk());
 
-        actions.andDo(documentation("고객 신규 등록", builder -> builder
-                .tag(tag)
-                .requestSchema(schema(CustomerDto.class.getSimpleName()))
-                .requestFields(
-                        fieldWithPath("id").ignored(),
-                        fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
-                        fieldWithPath("name").description("고객명").type(JsonFieldType.STRING),
-                        fieldWithPath("phone").description("연락처").type(JsonFieldType.STRING)
+        actions.andDo(new Documentation(tag, "고객 신규 등록")
+                .parameters(builder -> builder
+                        .requestSchema(schema(CustomerDto.class.getSimpleName()))
+                        .requestFields(
+                                fieldWithPath("id").ignored(),
+                                fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
+                                fieldWithPath("name").description("고객명").type(JsonFieldType.STRING),
+                                subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT)
+                        )
+                        .build()
                 )
-                .build()));
+                .write());
     }
 
     @Test
@@ -88,7 +89,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 .id(1L)
                 .name("test name")
                 .email("test@email.com")
-                .phone("01012345678")
+                .phone(new Phone("01012345678"))
                 .build();
         String paramJson = toJson(param);
 
@@ -100,16 +101,18 @@ class CustomerControllerTest extends BaseWebMvcTest {
         // then
         actions.andExpect(status().isOk());
 
-        actions.andDo(documentation("고객 정보 수정", builder -> builder
-                .tag(tag)
-                .requestSchema(schema(CustomerDto.class.getSimpleName()))
-                .requestFields(
-                        fieldWithPath("id").description("고객 식별 번호").type(JsonFieldType.NUMBER),
-                        fieldWithPath("name").description("고객명").type(JsonFieldType.STRING),
-                        fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
-                        fieldWithPath("phone").description("연락처").type(JsonFieldType.STRING)
+        actions.andDo(new Documentation(tag, "고객 정보 수정")
+                .parameters(builder -> builder
+                        .requestSchema(schema(CustomerDto.class.getSimpleName()))
+                        .requestFields(
+                                fieldWithPath("id").description("고객 식별 번호").type(JsonFieldType.NUMBER),
+                                fieldWithPath("name").description("고객명").type(JsonFieldType.STRING),
+                                fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
+                                subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT)
+                        )
+                        .build()
                 )
-                .build()));
+                .write());
     }
 
 }
