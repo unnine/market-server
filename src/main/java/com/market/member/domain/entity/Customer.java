@@ -27,6 +27,6 @@ public class Customer {
     public void updateInfo(CustomerDto to) {
         this.email = to.getEmail();
         this.name = to.getName();
-        this.phone = new Phone(to.getPhone());
+        this.phone = to.getPhone();
     }
 }
