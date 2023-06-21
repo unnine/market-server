@@ -6,3 +6,8 @@ springdoc:
   swagger-ui:
     url: /docs/openapi3.yaml
     path: /swagger-ui
+
+
+logging:
+  level:
+    org.hibernate.orm.jdbc.bind: trace

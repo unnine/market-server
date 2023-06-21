@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-21T14:47:52+0900",
+    date = "2023-06-22T17:58:37+0900",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.3 (Azul Systems, Inc.)"
 )
 @Component
@@ -19,9 +19,14 @@ public class CustomerMapperImpl implements CustomerMapper {
             return null;
         }
 
-        Customer customer = new Customer();
+        Customer.CustomerBuilder customer = Customer.builder();
 
-        return customer;
+        customer.id( dto.getId() );
+        customer.email( dto.getEmail() );
+        customer.name( dto.getName() );
+        customer.phone( dto.getPhone() );
+
+        return customer.build();
     }
 
     @Override
@@ -31,6 +36,11 @@ public class CustomerMapperImpl implements CustomerMapper {
         }
 
         CustomerDto.CustomerDtoBuilder customerDto = CustomerDto.builder();
+
+        customerDto.id( entity.getId() );
+        customerDto.email( entity.getEmail() );
+        customerDto.name( entity.getName() );
+        customerDto.phone( entity.getPhone() );
 
         return customerDto.build();
     }
