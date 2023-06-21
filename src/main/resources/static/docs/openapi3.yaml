@@ -11,8 +11,8 @@ paths:
     get:
       tags:
       - 고객
-      summary: 고객 목록 API
-      description: 고객 목록 API
+      summary: 고객 목록
+      description: 고객 목록
       operationId: 고객 목록
       responses:
         "200":
@@ -27,8 +27,8 @@ paths:
     post:
       tags:
       - 고객
-      summary: 고객 신규 등록 API
-      description: 고객 신규 등록 API
+      summary: 고객 신규 등록
+      description: 고객 신규 등록
       operationId: 고객 신규 등록
       requestBody:
         content:
@@ -38,8 +38,8 @@ paths:
             examples:
               고객 신규 등록:
                 value: "{\r\n  \"id\" : null,\r\n  \"email\" : \"test@email.com\"\
-                  ,\r\n  \"name\" : \"test name\",\r\n  \"phone\" : \"01012345678\"\
-                  \r\n}"
+                  ,\r\n  \"name\" : \"test name\",\r\n  \"phone\" : {\r\n    \"phoneNumber\"\
+                  \ : \"01012345678\"\r\n  }\r\n}"
       responses:
         "200":
           description: "200"
@@ -47,8 +47,8 @@ paths:
     get:
       tags:
       - 고객
-      summary: 고객 상세 정보 API
-      description: 고객 상세 정보 API
+      summary: 고객 상세 정보
+      description: 고객 상세 정보
       operationId: 고객 상세 정보
       responses:
         "200":
@@ -56,8 +56,8 @@ paths:
     patch:
       tags:
       - 고객
-      summary: 고객 정보 수정 API
-      description: 고객 정보 수정 API
+      summary: 고객 정보 수정
+      description: 고객 정보 수정
       operationId: 고객 정보 수정
       requestBody:
         content:
@@ -67,8 +67,8 @@ paths:
             examples:
               고객 정보 수정:
                 value: "{\r\n  \"id\" : 1,\r\n  \"email\" : \"test@email.com\",\r\n\
-                  \  \"name\" : \"test name\",\r\n  \"phone\" : \"01012345678\"\r\n\
-                  }"
+                  \  \"name\" : \"test name\",\r\n  \"phone\" : {\r\n    \"phoneNumber\"\
+                  \ : \"01012345678\"\r\n  }\r\n}"
       responses:
         "200":
           description: "200"
@@ -79,7 +79,7 @@ components:
       type: object
       properties:
         phone:
-          type: string
+          type: object
           description: 연락처
         name:
           type: string
