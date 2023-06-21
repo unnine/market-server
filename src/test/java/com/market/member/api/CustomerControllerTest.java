@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.test.web.servlet.ResultActions;
@@ -28,9 +29,13 @@ class CustomerControllerTest extends BaseWebMvcTest {
 
     @Test
     void getCustomerList_call_success() throws Exception {
+        // given
+        PageRequest pageRequest = PageRequest.of(0, 20);
+
         // when
         ResultActions actions = mockMvc().perform(get(mappingPath)
-                .contentType(MediaType.APPLICATION_JSON));
+                .contentType(MediaType.APPLICATION_JSON)
+                .queryParam());
 
         // then
         actions.andExpect(status().isOk());

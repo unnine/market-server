@@ -6,6 +6,8 @@ import com.market.member.dto.CustomerDto;
 import com.market.member.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +19,15 @@ public class CustomerApplicationService {
     private final CustomerMapper customerMapper;
     private final CustomerRepository customerRepository;
 
-    public List<CustomerDto> getCustomerList() {
-        return null;
+    public List<CustomerDto> getCustomerList(Pageable pageable) {
+        return customerRepository.findAll(pageable).stream()
+                .map(customerMapper::toDto)
+                .toList();
     }
 
     public CustomerDto getCustomer(Long id) {
-        Customer customer = customerRepository.findById(id).orElseThrow(() -> new EmptyResultDataAccessException(1));
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new EmptyResultDataAccessException(1));
         return customerMapper.toDto(customer);
     }
 
@@ -35,6 +40,7 @@ public class CustomerApplicationService {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
         customer.updateInfo(param);
+        customerRepository.save(customer);
     }
 
 }

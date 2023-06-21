@@ -4,6 +4,8 @@ import com.market.member.application.CustomerApplicationService;
 import com.market.member.dto.CustomerDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,8 +19,8 @@ public class CustomerController {
     private final CustomerApplicationService customerApplicationService;
 
     @GetMapping
-    public ResponseEntity<List<CustomerDto>> getCustomerList() {
-        return ResponseEntity.ok(customerApplicationService.getCustomerList());
+    public ResponseEntity<List<CustomerDto>> getCustomerList(Pageable pageable) {
+        return ResponseEntity.ok(customerApplicationService.getCustomerList(pageable));
     }
 
     @GetMapping("/{id}")
