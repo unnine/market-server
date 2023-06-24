@@ -24,7 +24,8 @@ public class SellerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SellerDto> getSeller(@PathVariable Long id) {
-        return ResponseEntity.ok(applicationService.getSeller(id));
+        SellerDto sellerDto = applicationService.getSeller(id);
+        return ResponseEntity.ok(sellerDto);
     }
 
     @PostMapping
@@ -33,7 +34,7 @@ public class SellerController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> signUp(@PathVariable Long id, @Valid @RequestBody SellerDto requestDto) {
         applicationService.modifyInfo(id, requestDto);
         return ResponseEntity.ok().build();

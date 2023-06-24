@@ -2,29 +2,24 @@ package com.market.member.api;
 
 import com.market.common.docs.BaseWebMvcTest;
 import com.market.common.docs.Documentation;
-import com.market.member.application.CustomerApplicationService;
 import com.market.member.application.SellerApplicationService;
-import com.market.member.domain.entity.Seller;
 import com.market.member.domain.vo.Phone;
 import com.market.member.dto.CustomerDto;
 import com.market.member.dto.SellerDto;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.junit.jupiter.MockitoSettings;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.mock.mockito.MockBeans;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
 import static com.epages.restdocs.apispec.Schema.schema;
-import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
@@ -33,11 +28,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 @WebMvcTest(SellerController.class)
-@MockBean(SellerApplicationService.class)
 class SellerControllerTest extends BaseWebMvcTest {
 
     private final String tag = "판매자";
     private final String mappingPath = "/v1/member/sellers";
+
+    @MockBean
+    private SellerApplicationService sellerApplicationService;
 
     @Test
     void getSellerList_call_success() throws Exception {
@@ -74,6 +71,9 @@ class SellerControllerTest extends BaseWebMvcTest {
 
     @Test
     void getSeller_call_success() throws Exception {
+        // given
+        when(sellerApplicationService.getSeller(any())).thenReturn(SellerDto.builder().build());
+
         // when
         ResultActions actions = mockMvc().perform(get(mappingPath + "/{id}", 1)
                 .contentType(MediaType.APPLICATION_JSON));
@@ -142,7 +142,7 @@ class SellerControllerTest extends BaseWebMvcTest {
         String paramJson = toJson(param);
 
         // when
-        ResultActions actions = mockMvc().perform(patch(mappingPath + "/{id}", 1)
+        ResultActions actions = mockMvc().perform(put(mappingPath + "/{id}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(paramJson));
 

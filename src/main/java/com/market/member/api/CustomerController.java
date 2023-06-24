@@ -33,7 +33,7 @@ public class CustomerController {
         return ResponseEntity.ok().build();
     }
 
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Void> signUp(@PathVariable Long id, @Valid @RequestBody CustomerDto requestDto) {
         applicationService.modifyInfo(id, requestDto);
         return ResponseEntity.ok().build();
