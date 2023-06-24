@@ -68,9 +68,6 @@ openapi3 {
 }
 
 tasks.register('generateOpenApi') {
-    dependsOn 'clean'
-    dependsOn 'openapi3'
-
     doFirst {
         delete file('src/main/resources/static/docs/')
     }
@@ -83,11 +80,8 @@ tasks.register('generateOpenApi') {
     }
 }
 
-bootRun {
-    dependsOn 'generateOpenApi'
-}
-
-bootJar {
-    dependsOn 'openapi3'
+tasks.named("build") {
+    finalizedBy 'openapi3'
+    finalizedBy 'generateOpenApi'
 }
 //
