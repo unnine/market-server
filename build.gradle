@@ -64,7 +64,6 @@ openapi3 {
     version = '0.1.0'
     outputFileNamePrefix = 'openapi3'
     outputDirectory = "${project.buildDir}/resources/main/static/docs"
-
     format = 'yaml'
 }
 
