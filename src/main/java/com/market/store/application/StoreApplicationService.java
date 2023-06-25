@@ -53,7 +53,7 @@ public class StoreApplicationService {
         storeRepository.save(store);
     }
 
-    public void removeStore(Long id) {
+    public void deleteStore(Long id) {
         Store store = storeRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
         storeRepository.delete(store);
