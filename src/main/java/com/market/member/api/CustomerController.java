@@ -28,20 +28,20 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> signUp(@Valid @RequestBody CustomerDto requestDto) {
-        applicationService.signUp(requestDto);
+    public ResponseEntity<Void> signUpCustomer(@Valid @RequestBody CustomerDto requestDto) {
+        applicationService.signUpCustomer(requestDto);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> signUp(@PathVariable Long id, @Valid @RequestBody CustomerDto requestDto) {
-        applicationService.modifyInfo(id, requestDto);
+    public ResponseEntity<Void> modifyCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDto requestDto) {
+        applicationService.modifyCustomer(id, requestDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> withdraw(@PathVariable Long id) {
-        applicationService.withdraw(id);
+    public ResponseEntity<Void> withdrawCustomer(@PathVariable Long id) {
+        applicationService.withdrawCustomer(id);
         return ResponseEntity.ok().build();
     }
 

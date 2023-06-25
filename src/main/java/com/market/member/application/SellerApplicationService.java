@@ -33,7 +33,7 @@ public class SellerApplicationService {
         return sellerMapper.toDto(seller);
     }
 
-    public void signUp(SellerDto param) {
+    public void signUpSeller(SellerDto param) {
         if (sellerService.existsEmail(param.getEmail())) {
             throw new DuplicateKeyException("Already exists email.");
         }
@@ -41,7 +41,7 @@ public class SellerApplicationService {
         sellerRepository.save(seller);
     }
 
-    public void modifyInfo(Long id, SellerDto param) {
+    public void modifySeller(Long id, SellerDto param) {
         if (sellerService.existsEmail(param.getEmail())) {
             throw new DuplicateKeyException("Already exists email.");
         }
@@ -51,7 +51,7 @@ public class SellerApplicationService {
         sellerRepository.save(seller);
     }
 
-    public void withdraw(Long id) {
+    public void withdrawSeller(Long id) {
         Seller seller = sellerRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
         sellerRepository.delete(seller);

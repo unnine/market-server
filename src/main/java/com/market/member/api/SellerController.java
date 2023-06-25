@@ -29,20 +29,20 @@ public class SellerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> signUp(@Valid @RequestBody SellerDto requestDto) {
-        applicationService.signUp(requestDto);
+    public ResponseEntity<Void> signUpSeller(@Valid @RequestBody SellerDto requestDto) {
+        applicationService.signUpSeller(requestDto);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> signUp(@PathVariable Long id, @Valid @RequestBody SellerDto requestDto) {
-        applicationService.modifyInfo(id, requestDto);
+    public ResponseEntity<Void> modifySeller(@PathVariable Long id, @Valid @RequestBody SellerDto requestDto) {
+        applicationService.modifySeller(id, requestDto);
         return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> withdraw(@PathVariable Long id) {
-        applicationService.withdraw(id);
+    public ResponseEntity<Void> withdrawSeller(@PathVariable Long id) {
+        applicationService.withdrawSeller(id);
         return ResponseEntity.ok().build();
     }
 

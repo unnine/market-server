@@ -8,7 +8,6 @@ import com.market.member.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,7 @@ public class CustomerApplicationService {
         return customerMapper.toDto(customer);
     }
 
-    public void signUp(CustomerDto param) {
+    public void signUpCustomer(CustomerDto param) {
         if (customerService.existsEmail(param.getEmail())) {
             throw new DuplicateKeyException("Already exists email.");
         }
@@ -42,7 +41,7 @@ public class CustomerApplicationService {
         customerRepository.save(newCustomer);
     }
 
-    public void modifyInfo(Long id, CustomerDto param) {
+    public void modifyCustomer(Long id, CustomerDto param) {
         if (customerService.existsEmail(param.getEmail())) {
            throw new DuplicateKeyException("Already exists email.");
         }
@@ -52,7 +51,7 @@ public class CustomerApplicationService {
         customerRepository.save(customer);
     }
 
-    public void withdraw(Long id) {
+    public void withdrawCustomer(Long id) {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
         customerRepository.delete(customer);
