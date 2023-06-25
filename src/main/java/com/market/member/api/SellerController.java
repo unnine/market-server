@@ -2,6 +2,8 @@ package com.market.member.api;
 
 import com.market.member.application.SellerApplicationService;
 import com.market.member.dto.SellerDto;
+import com.market.member.dto.SellerModifyDto;
+import com.market.member.dto.SellerRegisterDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -29,13 +31,13 @@ public class SellerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> signUpSeller(@Valid @RequestBody SellerDto requestDto) {
+    public ResponseEntity<Void> signUpSeller(@Valid @RequestBody SellerRegisterDto requestDto) {
         applicationService.signUpSeller(requestDto);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> modifySeller(@PathVariable Long id, @Valid @RequestBody SellerDto requestDto) {
+    public ResponseEntity<Void> modifySeller(@PathVariable Long id, @Valid @RequestBody SellerModifyDto requestDto) {
         applicationService.modifySeller(id, requestDto);
         return ResponseEntity.ok().build();
     }

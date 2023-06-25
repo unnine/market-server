@@ -14,11 +14,12 @@ import org.mapstruct.MappingTarget;
 @Mapper(config = BaseMapperConfig.class)
 public interface StoreMapper extends BaseMapper<Store, StoreDto> {
 
-    @Mapping(target = "id", ignore = true)
     @Mapping(source = "dto.name", target = "name")
     @Mapping(source = "seller", target = "owner")
     Store toEntityForRegister(StoreRegisterDto dto, Seller seller);
 
-    void updateStore(StoreModifyDto dto, @MappingTarget Store store);
+    default void updateEntity(StoreModifyDto dto, @MappingTarget Store store) {
+        store.updateInfo(dto.getName());
+    };
 
 }

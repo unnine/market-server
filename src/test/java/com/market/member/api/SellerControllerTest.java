@@ -3,9 +3,10 @@ package com.market.member.api;
 import com.market.common.docs.BaseWebMvcTest;
 import com.market.common.docs.Documentation;
 import com.market.member.application.SellerApplicationService;
-import com.market.member.domain.vo.Phone;
 import com.market.member.dto.CustomerDto;
 import com.market.member.dto.SellerDto;
+import com.market.member.dto.SellerModifyDto;
+import com.market.member.dto.SellerRegisterDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -101,10 +102,10 @@ class SellerControllerTest extends BaseWebMvcTest {
     @Test
     void signUpSeller_call_success() throws Exception {
         // given
-        SellerDto param = SellerDto.builder()
+        SellerRegisterDto param = SellerRegisterDto.builder()
                 .name("test seller")
                 .email("test@email.com")
-                .phone(new Phone("01012345678"))
+                .phoneNumber("01012345678")
                 .build();
         String paramJson = toJson(param);
 
@@ -118,12 +119,11 @@ class SellerControllerTest extends BaseWebMvcTest {
 
         actions.andDo(new Documentation(tag, "판매자 등록")
                 .parameters(builder -> builder
-                        .requestSchema(schema(SellerDto.class.getSimpleName()))
+                        .requestSchema(schema(SellerRegisterDto.class.getSimpleName()))
                         .requestFields(
-                                fieldWithPath("id").ignored(),
                                 fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
                                 fieldWithPath("name").description("이름").type(JsonFieldType.STRING),
-                                subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT)
+                                fieldWithPath("phoneNumber").description("모바일폰 번호").type(JsonFieldType.STRING)
                         )
                         .build()
                 )
@@ -133,11 +133,9 @@ class SellerControllerTest extends BaseWebMvcTest {
     @Test
     void modifyInfoSeller_call_success() throws Exception {
         // given
-        SellerDto param = SellerDto.builder()
+        SellerModifyDto param = SellerModifyDto.builder()
                 .id(1L)
-                .name("test seller2")
-                .email("test2@email.com")
-                .phone(new Phone("01098765432"))
+                .phoneNumber("01098765432")
                 .build();
         String paramJson = toJson(param);
 
@@ -151,12 +149,10 @@ class SellerControllerTest extends BaseWebMvcTest {
 
         actions.andDo(new Documentation(tag, "판매자 정보 수정")
                 .parameters(builder -> builder
-                        .requestSchema(schema(SellerDto.class.getSimpleName()))
+                        .requestSchema(schema(SellerModifyDto.class.getSimpleName()))
                         .requestFields(
                                 fieldWithPath("id").description("판매자 ID").type(JsonFieldType.NUMBER),
-                                fieldWithPath("name").description("이름").type(JsonFieldType.STRING),
-                                fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
-                                subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT)
+                                fieldWithPath("phoneNumber").description("연락처").type(JsonFieldType.STRING)
                         )
                         .build()
                 )

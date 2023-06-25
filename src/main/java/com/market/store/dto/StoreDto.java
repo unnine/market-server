@@ -8,10 +8,10 @@ import lombok.Getter;
 @Builder
 public class StoreDto {
 
-    private Long id;
+    Long id;
 
-    private String name;
+    String name;
 
-    private SellerDto owner;
+    SellerDto owner;
 
 }
