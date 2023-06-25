@@ -3,6 +3,8 @@ package com.market.member.api;
 <<<<<<< HEAD
 import com.market.member.application.CustomerApplicationService;
 import com.market.member.dto.CustomerDto;
+import com.market.member.dto.CustomerModifyDto;
+import com.market.member.dto.CustomerRegisterDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -30,13 +32,13 @@ public class CustomerController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> signUpCustomer(@Valid @RequestBody CustomerDto requestDto) {
+    public ResponseEntity<Void> signUpCustomer(@Valid @RequestBody CustomerRegisterDto requestDto) {
         applicationService.signUpCustomer(requestDto);
         return ResponseEntity.ok().build();
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> modifyCustomer(@PathVariable Long id, @Valid @RequestBody CustomerDto requestDto) {
+    public ResponseEntity<Void> modifyCustomer(@PathVariable Long id, @Valid @RequestBody CustomerModifyDto requestDto) {
         applicationService.modifyCustomer(id, requestDto);
         return ResponseEntity.ok().build();
     }

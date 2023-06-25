@@ -8,9 +8,9 @@ import lombok.Getter;
 public class StoreRegisterDto {
 
     @NotBlank
-    private String name;
+    String name;
 
     @NotNull
-    private Long ownerId;
+    Long ownerId;
 
 }

@@ -1,16 +1,18 @@
-package com.market.store.dto;
+package com.market.member.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class StoreModifyDto {
+@Builder
+public class CustomerModifyDto {
 
     @NotNull
     Long id;
 
     @NotBlank
-    String name;
+    String phoneNumber;
 
 }

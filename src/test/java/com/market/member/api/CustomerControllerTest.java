@@ -3,8 +3,9 @@ package com.market.member.api;
 import com.market.common.docs.BaseWebMvcTest;
 import com.market.common.docs.Documentation;
 import com.market.member.application.CustomerApplicationService;
-import com.market.member.domain.vo.Phone;
 import com.market.member.dto.CustomerDto;
+import com.market.member.dto.CustomerModifyDto;
+import com.market.member.dto.CustomerRegisterDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -100,10 +101,10 @@ class CustomerControllerTest extends BaseWebMvcTest {
     @Test
     void signUpCustomer_call_success() throws Exception {
         // given
-        CustomerDto param = CustomerDto.builder()
+        CustomerRegisterDto param = CustomerRegisterDto.builder()
                 .name("test name")
                 .email("test@email.com")
-                .phone(new Phone("01012345678"))
+                .phoneNumber("01012345678")
                 .build();
         String paramJson = toJson(param);
 
@@ -117,12 +118,11 @@ class CustomerControllerTest extends BaseWebMvcTest {
 
         actions.andDo(new Documentation(tag, "고객 신규 등록")
                 .parameters(builder -> builder
-                        .requestSchema(schema(CustomerDto.class.getSimpleName()))
+                        .requestSchema(schema(CustomerRegisterDto.class.getSimpleName()))
                         .requestFields(
-                                fieldWithPath("id").ignored(),
                                 fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
                                 fieldWithPath("name").description("이름").type(JsonFieldType.STRING),
-                                subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT)
+                                fieldWithPath("phoneNumber").description("휴대전화 번호").type(JsonFieldType.STRING)
                         )
                         .build()
                 )
@@ -132,11 +132,9 @@ class CustomerControllerTest extends BaseWebMvcTest {
     @Test
     void modifyCustomer_call_success() throws Exception {
         // given
-        CustomerDto param = CustomerDto.builder()
+        CustomerModifyDto param = CustomerModifyDto.builder()
                 .id(1L)
-                .name("test name")
-                .email("test@email.com")
-                .phone(new Phone("01012345678"))
+                .phoneNumber("01012345678")
                 .build();
         String paramJson = toJson(param);
 
@@ -153,12 +151,10 @@ class CustomerControllerTest extends BaseWebMvcTest {
                         .pathParameters(
                                 parameterWithName("id").description("고객 ID")
                         )
-                        .requestSchema(schema(CustomerDto.class.getSimpleName()))
+                        .requestSchema(schema(CustomerModifyDto.class.getSimpleName()))
                         .requestFields(
                                 fieldWithPath("id").description("고객 ID").type(JsonFieldType.NUMBER),
-                                fieldWithPath("name").description("이름").type(JsonFieldType.STRING),
-                                fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
-                                subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT)
+                                fieldWithPath("phoneNumber").description("휴대전화 번호").type(JsonFieldType.STRING)
                         )
                         .build()
                 )

@@ -3,10 +3,7 @@ package com.market.store.domain.entity;
 import com.market.member.domain.entity.Seller;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Getter
 @Entity
@@ -25,5 +22,9 @@ public class Store {
     @JoinColumn(name = "owner_id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     Seller owner;
+
+    public void updateInfo(String name) {
+        this.name = name;
+    }
 
 }

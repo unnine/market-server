@@ -4,6 +4,8 @@ import com.market.member.domain.entity.Seller;
 import com.market.member.domain.repository.SellerRepository;
 import com.market.member.domain.service.SellerService;
 import com.market.member.dto.SellerDto;
+import com.market.member.dto.SellerModifyDto;
+import com.market.member.dto.SellerRegisterDto;
 import com.market.member.mapper.SellerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
@@ -33,7 +35,7 @@ public class SellerApplicationService {
         return sellerMapper.toDto(seller);
     }
 
-    public void signUpSeller(SellerDto param) {
+    public void signUpSeller(SellerRegisterDto param) {
         if (sellerService.existsEmail(param.getEmail())) {
             throw new DuplicateKeyException("Already exists email.");
         }
@@ -41,13 +43,10 @@ public class SellerApplicationService {
         sellerRepository.save(seller);
     }
 
-    public void modifySeller(Long id, SellerDto param) {
-        if (sellerService.existsEmail(param.getEmail())) {
-            throw new DuplicateKeyException("Already exists email.");
-        }
+    public void modifySeller(Long id, SellerModifyDto param) {
         Seller seller = sellerRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
-        seller.updateInfo(param);
+        sellerMapper.updateEntity(param, seller);
         sellerRepository.save(seller);
     }
 
