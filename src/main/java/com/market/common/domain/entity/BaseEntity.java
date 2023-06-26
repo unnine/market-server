@@ -1,2 +1,4 @@
-package com.market.common.domain.entity;public class BaseEntity {
+package com.market.common.domain.entity;
+
+public class BaseEntity {
 }

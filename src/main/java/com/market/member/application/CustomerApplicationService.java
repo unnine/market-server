@@ -51,9 +51,7 @@ public class CustomerApplicationService {
     }
 
     public void withdrawCustomer(Long id) {
-        Customer customer = customerRepository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException(1));
-        customerRepository.delete(customer);
+        customerRepository.deleteById(id);
     }
 
 }

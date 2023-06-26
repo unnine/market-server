@@ -12,7 +12,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(config = BaseMapperConfig.class, uses = { StoreMapper.class, PhoneMapper.class })
+@Mapper(
+        config = BaseMapperConfig.class,
+        uses = { StoreMapper.class, PhoneMapper.class }
+)
 public interface SellerMapper extends BaseMapper<Seller, SellerDto> {
 
     @Override

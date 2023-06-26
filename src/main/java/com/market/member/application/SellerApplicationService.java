@@ -51,9 +51,7 @@ public class SellerApplicationService {
     }
 
     public void withdrawSeller(Long id) {
-        Seller seller = sellerRepository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException(1));
-        sellerRepository.delete(seller);
+        sellerRepository.deleteById(id);
     }
 
 }
