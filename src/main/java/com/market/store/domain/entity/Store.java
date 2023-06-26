@@ -5,6 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @Builder
@@ -22,6 +25,10 @@ public class Store {
     @JoinColumn(name = "owner_id")
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     Seller owner;
+
+    @Builder.Default
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "store", orphanRemoval = true, cascade = CascadeType.ALL)
+    List<Item> items = new ArrayList<>();
 
     public void updateInfo(String name) {
         this.name = name;

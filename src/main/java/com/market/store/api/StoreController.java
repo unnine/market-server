@@ -1,9 +1,8 @@
 package com.market.store.api;
 
+import com.market.store.application.ItemApplicationService;
 import com.market.store.application.StoreApplicationService;
-import com.market.store.dto.StoreDto;
-import com.market.store.dto.StoreModifyDto;
-import com.market.store.dto.StoreRegisterDto;
+import com.market.store.dto.*;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -18,6 +17,7 @@ import java.util.List;
 public class StoreController {
 
     private final StoreApplicationService storeApplicationService;
+    private final ItemApplicationService itemApplicationService;
 
     @GetMapping
     public ResponseEntity<List<StoreDto>> getStoreList(Pageable pageable) {
@@ -46,6 +46,18 @@ public class StoreController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStore(@PathVariable Long id) {
         storeApplicationService.deleteStore(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/{id}/items")
+    public ResponseEntity<List<ItemDto>> getItemList(@PathVariable Long id) {
+        List<ItemDto> items = itemApplicationService.getItemList(id);
+        return ResponseEntity.ok(items);
+    }
+
+    @PostMapping("/{id}/items")
+    public ResponseEntity<Void> registerItem(@PathVariable Long id, @Valid @RequestBody ItemRegisterDto requestDto) {
+        itemApplicationService.registerItem(id, requestDto);
         return ResponseEntity.ok().build();
     }
 

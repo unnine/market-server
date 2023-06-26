@@ -54,9 +54,7 @@ public class StoreApplicationService {
     }
 
     public void deleteStore(Long id) {
-        Store store = storeRepository.findById(id)
-                .orElseThrow(() -> new EmptyResultDataAccessException(1));
-        storeRepository.delete(store);
+        storeRepository.deleteById(id);
     }
 
 }

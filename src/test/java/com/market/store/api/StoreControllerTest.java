@@ -2,7 +2,9 @@ package com.market.store.api;
 
 import com.market.common.docs.BaseWebMvcTest;
 import com.market.common.docs.Documentation;
+import com.market.store.application.ItemApplicationService;
 import com.market.store.application.StoreApplicationService;
+import com.market.store.dto.ItemRegisterDto;
 import com.market.store.dto.StoreDto;
 import com.market.store.dto.StoreModifyDto;
 import com.market.store.dto.StoreRegisterDto;
@@ -35,6 +37,9 @@ class StoreControllerTest extends BaseWebMvcTest {
 
     @MockBean
     private StoreApplicationService storeApplicationService;
+
+    @MockBean
+    private ItemApplicationService itemApplicationService;
 
     @Test
     void getStoreList_call_success() throws Exception {
@@ -148,7 +153,8 @@ class StoreControllerTest extends BaseWebMvcTest {
                                 fieldWithPath("id").description("가게 ID").type(JsonFieldType.NUMBER),
                                 fieldWithPath("name").description("이름").type(JsonFieldType.STRING)
                         )
-                        .build())
+                        .build()
+                )
                 .write());
     }
 
@@ -166,7 +172,59 @@ class StoreControllerTest extends BaseWebMvcTest {
                         .pathParameters(
                                 parameterWithName("id").description("가게 ID")
                         )
-                        .build())
+                        .build()
+                )
+                .write());
+    }
+
+    @Test
+    void getItemList_call_success() throws Exception {
+        // when
+        ResultActions actions = mockMvc().perform(get(mappingPath + "/{id}/items", 1L)
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // then
+        actions.andExpect(status().isOk());
+
+        actions.andDo(new Documentation(tag, "상품 목록")
+                .parameters(builder -> builder
+                        .pathParameters(
+                            parameterWithName("id").description("가게 ID")
+                        )
+                        .build()
+                )
+                .write());
+    }
+
+    @Test
+    void registerItems_call_success() throws Exception {
+        // given
+        ItemRegisterDto param = ItemRegisterDto.builder()
+                .name("test item")
+                .price(1000L)
+                .build();
+        String paramJson = toJson(param);
+
+        // when
+        ResultActions actions = mockMvc().perform(post(mappingPath + "/{id}/items", 1L)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(paramJson));
+
+        // then
+        actions.andExpect(status().isOk());
+
+        actions.andDo(new Documentation(tag, "상품 등록")
+                .parameters(builder -> builder
+                        .pathParameters(
+                                parameterWithName("id").description("가게 ID")
+                        )
+                        .requestSchema(schema(ItemRegisterDto.class.getSimpleName()))
+                        .requestFields(
+                                fieldWithPath("name").description("상품명").type(JsonFieldType.STRING),
+                                fieldWithPath("price").description("가격").type(JsonFieldType.NUMBER)
+                        )
+                        .build()
+                )
                 .write());
     }
 

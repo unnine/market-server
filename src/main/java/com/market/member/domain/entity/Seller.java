@@ -5,6 +5,7 @@ import com.market.store.domain.entity.Store;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -25,9 +26,9 @@ public class Seller {
     @Embedded
     Phone phone;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "owner",
-            orphanRemoval = true, cascade = CascadeType.ALL)
-    List<Store> stores;
+    @Builder.Default
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    List<Store> stores = new ArrayList<>();
 
     public void updateInfo(Phone phone) {
         this.phone = phone;
