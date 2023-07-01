@@ -1,5 +1,6 @@
 package com.market.store.domain.entity;
 
+import com.market.common.domain.entity.BaseEntity;
 import com.market.member.domain.entity.Seller;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +14,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Store {
+public class Store extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -15,4 +15,6 @@ public class ItemDto {
 
     StoreDto store;
 
+    boolean soldOut;
+
 }

@@ -1,5 +1,6 @@
 package com.market.member.domain.entity;
 
+import com.market.common.domain.entity.BaseEntity;
 import com.market.member.domain.vo.Phone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Customer {
+public class Customer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,10 @@ public class Customer {
     @NotNull
     @Embedded
     Phone phone;
+
+    @JoinColumn(name = "cart_id")
+    @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    Cart cart;
 
     public void updateInfo(Phone phone) {
         this.phone = phone;
