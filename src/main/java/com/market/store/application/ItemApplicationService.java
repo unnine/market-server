@@ -10,6 +10,7 @@ import com.market.store.dto.ItemRegisterDto;
 import com.market.store.mapper.ItemMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,8 +23,8 @@ public class ItemApplicationService {
     private final ItemRepository itemRepository;
     private final StoreRepository storeRepository;
 
-    public List<ItemDto> getItemList(Long storeId) {
-        return itemRepository.findAllByStoreId(storeId).stream()
+    public List<ItemDto> getItemList(Long storeId, Pageable pageable) {
+        return itemRepository.findAllByStoreId(storeId, pageable).stream()
                 .map(itemMapper::toDto)
                 .toList();
     }

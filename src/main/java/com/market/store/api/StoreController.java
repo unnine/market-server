@@ -50,8 +50,8 @@ public class StoreController {
     }
 
     @GetMapping("/{id}/items")
-    public ResponseEntity<List<ItemDto>> getItemList(@PathVariable Long id) {
-        List<ItemDto> items = itemApplicationService.getItemList(id);
+    public ResponseEntity<List<ItemDto>> getItemList(@PathVariable Long id, Pageable pageable) {
+        List<ItemDto> items = itemApplicationService.getItemList(id, pageable);
         return ResponseEntity.ok(items);
     }
 

@@ -1,6 +1,6 @@
 package com.market.member.api;
 
-<<<<<<< HEAD
+import com.market.member.application.CartApplicationService;
 import com.market.member.application.CustomerApplicationService;
 import com.market.member.dto.CustomerDto;
 import com.market.member.dto.CustomerModifyDto;
@@ -48,15 +48,4 @@ public class CustomerController {
         applicationService.withdrawCustomer(id);
         return ResponseEntity.ok().build();
     }
-=======
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-@RequestMapping("/v1/member")
-public class MemberController {
-
-
->>>>>>> 9a65deb ([WIP] member controller)
-
 }
