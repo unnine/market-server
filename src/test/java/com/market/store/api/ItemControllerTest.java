@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ItemControllerTest extends BaseWebMvcTest {
 
     private final String tag = "상품";
-    private final String mappingPath = "/v1/items";
+    private final String mappingPath = "/v1/store/items";
 
     @MockBean
     private ItemApplicationService itemApplicationService;
