@@ -113,5 +113,4 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 )
                 .build()));
     }
-
 }
