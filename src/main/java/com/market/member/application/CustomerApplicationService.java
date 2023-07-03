@@ -3,15 +3,21 @@ package com.market.member.application;
 import com.market.member.domain.entity.Customer;
 import com.market.member.domain.repository.CustomerRepository;
 import com.market.member.dto.CustomerDto;
+<<<<<<< HEAD
 import com.market.member.mapper.CustomerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.EmptyResultDataAccessException;
+=======
+>>>>>>> a4a40b6 (Write Customer Controller Test Code)
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
+<<<<<<< HEAD
 @RequiredArgsConstructor
+=======
+>>>>>>> a4a40b6 (Write Customer Controller Test Code)
 public class CustomerApplicationService {
 
     private final CustomerMapper customerMapper;

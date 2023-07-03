@@ -2,7 +2,6 @@ package com.market.member.api;
 
 import com.market.common.docs.BaseWebMvcTest;
 import com.market.member.application.CustomerApplicationService;
-import com.market.member.domain.vo.Phone;
 import com.market.member.dto.CustomerDto;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -15,7 +14,6 @@ import org.springframework.test.web.servlet.ResultActions;
 import static com.epages.restdocs.apispec.Schema.schema;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
@@ -59,7 +57,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
         CustomerDto param = CustomerDto.builder()
                 .name("test name")
                 .email("test@email.com")
-                .phone(new Phone("01012345678"))
+                .phone("01012345678")
                 .build();
         String paramJson = toJson(param);
 
@@ -78,7 +76,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                         fieldWithPath("id").ignored(),
                         fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
                         fieldWithPath("name").description("고객명").type(JsonFieldType.STRING),
-                        subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT)
+                        fieldWithPath("phone").description("연락처").type(JsonFieldType.STRING)
                 )
                 .build()));
     }
@@ -90,7 +88,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 .id(1L)
                 .name("test name")
                 .email("test@email.com")
-                .phone(new Phone("01012345678"))
+                .phone("01012345678")
                 .build();
         String paramJson = toJson(param);
 
@@ -109,7 +107,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                         fieldWithPath("id").description("고객 식별 번호").type(JsonFieldType.NUMBER),
                         fieldWithPath("name").description("고객명").type(JsonFieldType.STRING),
                         fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
-                        subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT)
+                        fieldWithPath("phone").description("연락처").type(JsonFieldType.STRING)
                 )
                 .build()));
     }

@@ -1,9 +1,7 @@
 package com.market.member.dto;
 
-import com.market.member.domain.vo.Phone;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -19,7 +17,7 @@ public class CustomerDto {
     @NotBlank
     String name;
 
-    @NotNull
-    Phone phone;
+    @NotBlank
+    String phone;
 
 }

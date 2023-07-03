@@ -1,5 +1,6 @@
 package com.market.member.api;
 
+<<<<<<< HEAD
 import com.market.member.application.CustomerApplicationService;
 import com.market.member.dto.CustomerDto;
 import jakarta.validation.Valid;
@@ -37,5 +38,15 @@ public class CustomerController {
         customerApplicationService.modifyInfo(id, requestDto);
         return ResponseEntity.ok().build();
     }
+=======
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/v1/member")
+public class MemberController {
+
+
+>>>>>>> 9a65deb ([WIP] member controller)
 
 }
