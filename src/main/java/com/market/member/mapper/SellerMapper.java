@@ -24,10 +24,4 @@ public interface SellerMapper extends BaseMapper<Seller, SellerDto> {
     @Mapping(target = "phone", source = "phoneNumber")
     Seller toEntity(SellerRegisterDto dto);
 
-    default void updateEntity(SellerModifyDto dto, @MappingTarget Seller seller) {
-        PhoneMapper phoneMapper = PhoneMapper.INSTANCE;
-        Phone phone = phoneMapper.toEntity(dto.getPhoneNumber());
-        seller.updateInfo(phone);
-    };
-
 }

@@ -13,9 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class SellerModifyDto {
 
-    @NotNull
-    Long id;
-
     @NotBlank
     String phoneNumber;
 

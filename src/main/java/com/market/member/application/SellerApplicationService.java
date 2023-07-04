@@ -3,9 +3,11 @@ package com.market.member.application;
 import com.market.member.domain.entity.Seller;
 import com.market.member.domain.repository.SellerRepository;
 import com.market.member.domain.service.SellerService;
+import com.market.member.domain.vo.Phone;
 import com.market.member.dto.SellerDto;
 import com.market.member.dto.SellerModifyDto;
 import com.market.member.dto.SellerRegisterDto;
+import com.market.member.mapper.PhoneMapper;
 import com.market.member.mapper.SellerMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
@@ -20,7 +22,10 @@ import java.util.List;
 public class SellerApplicationService {
 
     private final SellerMapper sellerMapper;
+    private final PhoneMapper phoneMapper;
+
     private final SellerService sellerService;
+
     private final SellerRepository sellerRepository;
 
     public List<SellerDto> getSellerList(Pageable pageable) {
@@ -46,7 +51,8 @@ public class SellerApplicationService {
     public void modifySeller(Long id, SellerModifyDto param) {
         Seller seller = sellerRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
-        sellerMapper.updateEntity(param, seller);
+        Phone phone = phoneMapper.toEntity(param.getPhoneNumber());
+        seller.updateInfo(phone);
         sellerRepository.save(seller);
     }
 

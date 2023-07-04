@@ -13,9 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class StoreModifyDto {
 
-    @NotNull
-    Long id;
-
     @NotBlank
     String name;
 

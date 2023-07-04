@@ -18,8 +18,4 @@ public interface StoreMapper extends BaseMapper<Store, StoreDto> {
     @Mapping(source = "seller", target = "owner")
     Store toEntityForRegister(StoreRegisterDto dto, Seller seller);
 
-    default void updateEntity(StoreModifyDto dto, @MappingTarget Store store) {
-        store.updateInfo(dto.getName());
-    };
-
 }

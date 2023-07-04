@@ -12,7 +12,6 @@ public class Phone {
     String phoneNumber;
 
     public Phone(String phoneNumber) {
-        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 
         // TODO 번호 유효성 체크
 

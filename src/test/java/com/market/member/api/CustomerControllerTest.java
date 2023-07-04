@@ -133,7 +133,6 @@ class CustomerControllerTest extends BaseWebMvcTest {
     void modifyCustomer_call_success() throws Exception {
         // given
         CustomerModifyDto param = CustomerModifyDto.builder()
-                .id(1L)
                 .phoneNumber("01012345678")
                 .build();
         String paramJson = toJson(param);
@@ -153,7 +152,6 @@ class CustomerControllerTest extends BaseWebMvcTest {
                         )
                         .requestSchema(schema(CustomerModifyDto.class.getSimpleName()))
                         .requestFields(
-                                fieldWithPath("id").description("고객 ID").type(JsonFieldType.NUMBER),
                                 fieldWithPath("phoneNumber").description("휴대전화 번호").type(JsonFieldType.STRING)
                         )
                         .build()

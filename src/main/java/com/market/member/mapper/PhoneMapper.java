@@ -8,7 +8,6 @@ import org.mapstruct.factory.Mappers;
 
 @Mapper(config = BaseMapperConfig.class)
 public interface PhoneMapper extends BaseMapper<Phone, String> {
-    PhoneMapper INSTANCE = Mappers.getMapper( PhoneMapper.class );
 
     @Override
     default Phone toEntity(String phoneNumber) {

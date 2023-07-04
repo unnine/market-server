@@ -134,7 +134,6 @@ class SellerControllerTest extends BaseWebMvcTest {
     void modifyInfoSeller_call_success() throws Exception {
         // given
         SellerModifyDto param = SellerModifyDto.builder()
-                .id(1L)
                 .phoneNumber("01098765432")
                 .build();
         String paramJson = toJson(param);
@@ -151,7 +150,6 @@ class SellerControllerTest extends BaseWebMvcTest {
                 .parameters(builder -> builder
                         .requestSchema(schema(SellerModifyDto.class.getSimpleName()))
                         .requestFields(
-                                fieldWithPath("id").description("판매자 ID").type(JsonFieldType.NUMBER),
                                 fieldWithPath("phoneNumber").description("연락처").type(JsonFieldType.STRING)
                         )
                         .build()

@@ -22,6 +22,8 @@ public class QCustomer extends EntityPathBase<Customer> {
 
     public static final QCustomer customer = new QCustomer("customer");
 
+    public final ListPath<CustomerAddress, QCustomerAddress> addresses = this.<CustomerAddress, QCustomerAddress>createList("addresses", CustomerAddress.class, QCustomerAddress.class, PathInits.DIRECT2);
+
     public final QCart cart;
 
     public final StringPath email = createString("email");
