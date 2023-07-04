@@ -135,7 +135,6 @@ class StoreControllerTest extends BaseWebMvcTest {
     void modifyStore_call_success() throws Exception {
         // given
         StoreModifyDto param = StoreModifyDto.builder()
-                .id(1L)
                 .name("updated store name")
                 .build();
         String paramJson = toJson(param);
@@ -148,9 +147,11 @@ class StoreControllerTest extends BaseWebMvcTest {
         // then
         actions.andDo(new Documentation(tag, "가게 정보 수정")
                 .parameters(builder -> builder
+                        .pathParameters(
+                                parameterWithName("id").description("가게 ID")
+                        )
                         .requestSchema(schema(StoreModifyDto.class.getSimpleName()))
                         .requestFields(
-                                fieldWithPath("id").description("가게 ID").type(JsonFieldType.NUMBER),
                                 fieldWithPath("name").description("이름").type(JsonFieldType.STRING)
                         )
                         .build()

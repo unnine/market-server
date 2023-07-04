@@ -49,7 +49,7 @@ public class StoreApplicationService {
     public void modifyStore(Long id, StoreModifyDto param) {
         Store store = storeRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
-        storeMapper.updateEntity(param, store);
+        store.updateInfo(param.getName());
         storeRepository.save(store);
     }
 

@@ -11,6 +11,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Entity
 @Builder
@@ -35,6 +38,10 @@ public class Customer extends BaseEntity {
     @JoinColumn(name = "cart_id")
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     Cart cart;
+
+    @Builder.Default
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
+    List<CustomerAddress> addresses = new ArrayList<>();
 
     public void updateInfo(Phone phone) {
         this.phone = phone;
