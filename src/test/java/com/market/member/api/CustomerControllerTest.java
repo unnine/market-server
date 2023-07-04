@@ -2,7 +2,9 @@ package com.market.member.api;
 
 import com.market.common.docs.BaseWebMvcTest;
 import com.market.common.docs.Documentation;
+import com.market.common.domain.vo.Address;
 import com.market.member.application.CustomerApplicationService;
+import com.market.member.dto.CustomerAddressRegisterDto;
 import com.market.member.dto.CustomerDto;
 import com.market.member.dto.CustomerModifyDto;
 import com.market.member.dto.CustomerRegisterDto;
@@ -65,8 +67,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                                 fieldWithPath("name").description("이름").type(JsonFieldType.STRING).optional(),
                                 subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT).optional()
                         )
-                        .build()
-                )
+                        .build())
                 .write());
     }
 
@@ -124,8 +125,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                                 fieldWithPath("name").description("이름").type(JsonFieldType.STRING),
                                 fieldWithPath("phoneNumber").description("휴대전화 번호").type(JsonFieldType.STRING)
                         )
-                        .build()
-                )
+                        .build())
                 .write());
     }
 
@@ -154,8 +154,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                         .requestFields(
                                 fieldWithPath("phoneNumber").description("휴대전화 번호").type(JsonFieldType.STRING)
                         )
-                        .build()
-                )
+                        .build())
                 .write());
     }
 
@@ -173,8 +172,118 @@ class CustomerControllerTest extends BaseWebMvcTest {
                         .pathParameters(
                                 parameterWithName("id").description("고객 ID")
                         )
-                        .build()
-                )
+                        .build())
                 .write());
+    }
+
+    @Test
+    public void getAddresses_call_success() throws Exception {
+        // given
+
+        // when
+        ResultActions actions = mockMvc().perform(get(mappingPath + "/{id}/addresses", 1)
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // then
+        actions.andExpect(status().isOk());
+
+        actions.andDo(new Documentation(tag, "주소 목록 조회")
+                .parameters(builder -> builder
+                        .pathParameters(
+                                parameterWithName("id").description("고객 ID")
+                        )
+                        .build())
+                .write());
+    }
+
+    @Test
+    public void registerAddress_call_success() throws Exception {
+        // given
+        Address address = Address.builder()
+                .roadAddress("test road address")
+                .manualAddress("manually address")
+                .build();
+
+        CustomerAddressRegisterDto param = CustomerAddressRegisterDto.builder()
+                .address(address)
+                .build();
+
+        String paramJson = toJson(param);
+
+        // when
+        ResultActions actions = mockMvc().perform(post(mappingPath + "/{id}/addresses", 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(paramJson));
+
+        // then
+        actions.andExpect(status().isOk());
+
+        actions.andDo(new Documentation(tag, "고객 주소 등록")
+                .parameters(builder -> builder
+                        .pathParameters(
+                                parameterWithName("id").description("고객 ID")
+                        )
+                        .requestSchema(schema(CustomerAddressRegisterDto.class.getSimpleName()))
+                        .requestFields(
+                                subsectionWithPath("address").description("주소").type(JsonFieldType.OBJECT)
+                        )
+                        .build())
+                .write());
+    }
+
+    @Test
+    public void modifyAddress_call_success() throws Exception {
+        // given
+        Address address = Address.builder()
+                .roadAddress("test road address")
+                .manualAddress("manually address")
+                .build();
+
+        CustomerAddressRegisterDto param = CustomerAddressRegisterDto.builder()
+                .address(address)
+                .build();
+
+        String paramJson = toJson(param);
+
+        // when
+        ResultActions actions = mockMvc().perform(put(mappingPath + "/{id}/addresses/{addressId}", 1, 1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(paramJson));
+
+        // then
+        actions.andExpect(status().isOk());
+
+        actions.andDo(new Documentation(tag, "고객 주소 수정")
+                .parameters(builder -> builder
+                        .pathParameters(
+                                parameterWithName("id").description("고객 ID"),
+                                parameterWithName("addressId").description("주소 ID")
+                        )
+                        .requestSchema(schema(CustomerAddressRegisterDto.class.getSimpleName()))
+                        .requestFields(
+                                subsectionWithPath("address").description("주소").type(JsonFieldType.OBJECT)
+                        )
+                        .build())
+                .write());
+    }
+
+    @Test
+    public void deleteAddress_call_success() throws Exception {
+        // when
+        ResultActions actions = mockMvc().perform(delete(mappingPath + "/{id}/addresses/{addressId}", 1, 1)
+                .contentType(MediaType.APPLICATION_JSON));
+
+        // then
+        actions.andExpect(status().isOk());
+
+        actions.andDo(new Documentation(tag, "고객 주소 삭제")
+                .parameters(builder -> builder
+                        .pathParameters(
+                                parameterWithName("id").description("고객 ID"),
+                                parameterWithName("addressId").description("주소 ID")
+                        )
+                        .build())
+                .write());
+
     }
 }
