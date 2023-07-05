@@ -1,8 +1,7 @@
 package com.market.member.dto;
 
 import com.market.common.domain.vo.Address;
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +13,50 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class CustomerAddressModifyDto {
 
-    @Valid
-    Address address;
+    @NotBlank
+    String roadAddress;
+
+    String roadEngAddress;
+
+    String roadPartAddress;
+
+    String roadReferenceAddress;
+
+    @NotBlank
+    String manualAddress;
+
+    String jibunAddress;
+
+    String controlCenterAddress;
+
+    String zipNo;
+
+    String siName;
+
+    String guName;
+
+    String dongName;
+
+    String dongNo;
+
+    String liName;
+
+    String roadName;
+
+    String districtCode;
+
+    String roadCode;
+
+    String buildingManagementCode;
+
+    String buildingName;
+
+    String buildingNameDetail;
+
+    boolean mountain;
+
+    boolean underground;
+
+    boolean cohousing;
 
 }

@@ -65,7 +65,7 @@ class ItemControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "상품 정보 수정")
                 .parameters(builder -> builder
@@ -89,7 +89,7 @@ class ItemControllerTest extends BaseWebMvcTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "상품 삭제")
                 .parameters(builder -> builder

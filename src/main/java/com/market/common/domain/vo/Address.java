@@ -1,7 +1,6 @@
 package com.market.common.domain.vo;
 
 import jakarta.persistence.Embeddable;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,7 +13,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Address {
 
-    @NotBlank
     String roadAddress;
 
     String roadEngAddress;
@@ -23,7 +21,6 @@ public class Address {
 
     String roadReferenceAddress;
 
-    @NotBlank
     String manualAddress;
 
     String jibunAddress;

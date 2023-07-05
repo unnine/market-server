@@ -36,19 +36,19 @@ public class CustomerController {
     @PostMapping
     public ResponseEntity<Void> signUpCustomer(@Valid @RequestBody CustomerRegisterDto requestDto) {
         applicationService.signUpCustomer(requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> modifyCustomer(@PathVariable Long id, @Valid @RequestBody CustomerModifyDto requestDto) {
         applicationService.modifyCustomer(id, requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> withdrawCustomer(@PathVariable Long id) {
         applicationService.withdrawCustomer(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/addresses")
@@ -58,21 +58,22 @@ public class CustomerController {
     }
 
     @PostMapping("/{id}/addresses")
-    public ResponseEntity<Void> registerAddress(@PathVariable Long id, @Valid CustomerAddressRegisterDto requestDto) {
+    public ResponseEntity<Void> registerAddress(@PathVariable Long id,
+                                                @Valid @RequestBody CustomerAddressRegisterDto requestDto) {
         applicationService.registerCustomerAddress(id, requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}/addresses/{addressId}")
     public ResponseEntity<Void> modifyAddress(@PathVariable Long addressId,
-                                              @Valid CustomerAddressModifyDto requestDto) {
+                                              @Valid @RequestBody CustomerAddressModifyDto requestDto) {
         applicationService.modifyCustomerAddress(addressId, requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}/addresses/{addressId}")
     public ResponseEntity<Void> deleteAddress(@PathVariable Long addressId) {
         applicationService.deleteCustomerAddress(addressId);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

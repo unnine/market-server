@@ -24,13 +24,13 @@ public class ItemController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> modifyItem(@PathVariable Long id, @Valid @RequestBody ItemModifyDto requestDto) {
         itemApplicationService.modifyItem(id, requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteItem(@PathVariable Long id) {
         itemApplicationService.deleteItem(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }

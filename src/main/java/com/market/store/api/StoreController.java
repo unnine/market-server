@@ -34,19 +34,19 @@ public class StoreController {
     @PostMapping
     public ResponseEntity<Void> registerStore(@Valid @RequestBody StoreRegisterDto requestDto) {
         storeApplicationService.registerStore(requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> modifyStore(@PathVariable Long id, @Valid @RequestBody StoreModifyDto requestDto) {
         storeApplicationService.modifyStore(id, requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteStore(@PathVariable Long id) {
         storeApplicationService.deleteStore(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/{id}/items")
@@ -58,7 +58,7 @@ public class StoreController {
     @PostMapping("/{id}/items")
     public ResponseEntity<Void> registerItem(@PathVariable Long id, @Valid @RequestBody ItemRegisterDto requestDto) {
         itemApplicationService.registerItem(id, requestDto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }

@@ -1,5 +1,6 @@
 package com.market.member.application;
 
+import com.market.common.domain.vo.Address;
 import com.market.member.domain.entity.Customer;
 import com.market.member.domain.entity.CustomerAddress;
 import com.market.member.domain.repository.CustomerAddressRepository;
@@ -72,14 +73,22 @@ public class CustomerApplicationService {
     }
 
     public void registerCustomerAddress(Long id, CustomerAddressRegisterDto param) {
-        CustomerAddress address = customerAddressMapper.toEntity(param);
-        customerAddressRepository.save(address);
+        Customer customer = customerRepository.findById(id)
+                .orElseThrow(() -> new EmptyResultDataAccessException(1));
+        Address address = customerAddressMapper.toAddress(param);
+
+        CustomerAddress customerAddress = CustomerAddress.builder()
+                .address(address)
+                .customer(customer)
+                .build();
+        customerAddressRepository.save(customerAddress);
     }
 
     public void modifyCustomerAddress(Long addressId, CustomerAddressModifyDto param) {
         CustomerAddress customerAddress = customerAddressRepository.findById(addressId)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
-        customerAddress.updateAddress(param.getAddress());
+        Address address = customerAddressMapper.toAddress(param);
+        customerAddress.updateAddress(address);
         customerAddressRepository.save(customerAddress);
     }
     public void deleteCustomerAddress(Long addressId) {

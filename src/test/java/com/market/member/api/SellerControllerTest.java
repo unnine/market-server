@@ -115,7 +115,7 @@ class SellerControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "판매자 등록")
                 .parameters(builder -> builder
@@ -144,7 +144,7 @@ class SellerControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "판매자 정보 수정")
                 .parameters(builder -> builder
@@ -164,7 +164,7 @@ class SellerControllerTest extends BaseWebMvcTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "판매자 정보 삭제")
                 .parameters(builder -> builder

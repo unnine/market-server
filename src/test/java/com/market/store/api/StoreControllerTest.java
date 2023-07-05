@@ -117,7 +117,7 @@ class StoreControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "가게 등록")
                 .parameters(builder -> builder
@@ -166,7 +166,7 @@ class StoreControllerTest extends BaseWebMvcTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "가게 삭제")
                 .parameters(builder -> builder
@@ -212,7 +212,7 @@ class StoreControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "상품 등록")
                 .parameters(builder -> builder

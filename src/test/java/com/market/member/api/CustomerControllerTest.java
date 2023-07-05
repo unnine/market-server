@@ -4,10 +4,7 @@ import com.market.common.docs.BaseWebMvcTest;
 import com.market.common.docs.Documentation;
 import com.market.common.domain.vo.Address;
 import com.market.member.application.CustomerApplicationService;
-import com.market.member.dto.CustomerAddressRegisterDto;
-import com.market.member.dto.CustomerDto;
-import com.market.member.dto.CustomerModifyDto;
-import com.market.member.dto.CustomerRegisterDto;
+import com.market.member.dto.*;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -115,7 +112,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "고객 신규 등록")
                 .parameters(builder -> builder
@@ -143,7 +140,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "고객 정보 수정")
                 .parameters(builder -> builder
@@ -165,7 +162,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "고객 정보 삭제")
                 .parameters(builder -> builder
@@ -199,13 +196,9 @@ class CustomerControllerTest extends BaseWebMvcTest {
     @Test
     public void registerAddress_call_success() throws Exception {
         // given
-        Address address = Address.builder()
+        CustomerAddressRegisterDto param = CustomerAddressRegisterDto.builder()
                 .roadAddress("test road address")
                 .manualAddress("manually address")
-                .build();
-
-        CustomerAddressRegisterDto param = CustomerAddressRegisterDto.builder()
-                .address(address)
                 .build();
 
         String paramJson = toJson(param);
@@ -216,7 +209,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "고객 주소 등록")
                 .parameters(builder -> builder
@@ -225,7 +218,28 @@ class CustomerControllerTest extends BaseWebMvcTest {
                         )
                         .requestSchema(schema(CustomerAddressRegisterDto.class.getSimpleName()))
                         .requestFields(
-                                subsectionWithPath("address").description("주소").type(JsonFieldType.OBJECT)
+                                fieldWithPath("roadAddress").description("도로명 전체 주소").type(JsonFieldType.STRING),
+                                fieldWithPath("roadEngAddress").description("도로명 영문 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("roadPartAddress").description("도로명 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("roadReferenceAddress").description("참고 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("manualAddress").description("직접 입력 주소").type(JsonFieldType.STRING),
+                                fieldWithPath("jibunAddress").description("지번 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("controlCenterAddress").description("관할 센터 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("zipNo").description("우편 번호").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("siName").description("시도").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("guName").description("군구").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("dongName").description("읍면동").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("dongNo").description("읍면동 일련번호").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("liName").description("법정리").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("roadName").description("도로명").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("districtCode").description("행정구역 코드").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("roadCode").description("도로명 코드").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("buildingManagementCode").description("건물 관리 번호").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("buildingName").description("건물명").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("buildingNameDetail").description("건물명 상세").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("mountain").description("산 여부").type(JsonFieldType.BOOLEAN).optional(),
+                                fieldWithPath("underground").description("지하 여부").type(JsonFieldType.BOOLEAN).optional(),
+                                fieldWithPath("cohousing").description("공동 주택 여부").type(JsonFieldType.BOOLEAN).optional()
                         )
                         .build())
                 .write());
@@ -234,13 +248,9 @@ class CustomerControllerTest extends BaseWebMvcTest {
     @Test
     public void modifyAddress_call_success() throws Exception {
         // given
-        Address address = Address.builder()
+        CustomerAddressModifyDto param = CustomerAddressModifyDto.builder()
                 .roadAddress("test road address")
                 .manualAddress("manually address")
-                .build();
-
-        CustomerAddressRegisterDto param = CustomerAddressRegisterDto.builder()
-                .address(address)
                 .build();
 
         String paramJson = toJson(param);
@@ -251,7 +261,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 .content(paramJson));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "고객 주소 수정")
                 .parameters(builder -> builder
@@ -259,9 +269,30 @@ class CustomerControllerTest extends BaseWebMvcTest {
                                 parameterWithName("id").description("고객 ID"),
                                 parameterWithName("addressId").description("주소 ID")
                         )
-                        .requestSchema(schema(CustomerAddressRegisterDto.class.getSimpleName()))
+                        .requestSchema(schema(CustomerAddressModifyDto.class.getSimpleName()))
                         .requestFields(
-                                subsectionWithPath("address").description("주소").type(JsonFieldType.OBJECT)
+                                fieldWithPath("roadAddress").description("도로명 전체 주소").type(JsonFieldType.STRING),
+                                fieldWithPath("roadEngAddress").description("도로명 영문 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("roadPartAddress").description("도로명 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("roadReferenceAddress").description("참고 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("manualAddress").description("직접 입력 주소").type(JsonFieldType.STRING),
+                                fieldWithPath("jibunAddress").description("지번 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("controlCenterAddress").description("관할 센터 주소").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("zipNo").description("우편 번호").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("siName").description("시도").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("guName").description("군구").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("dongName").description("읍면동").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("dongNo").description("읍면동 일련번호").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("liName").description("법정리").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("roadName").description("도로명").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("districtCode").description("행정구역 코드").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("roadCode").description("도로명 코드").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("buildingManagementCode").description("건물 관리 번호").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("buildingName").description("건물명").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("buildingNameDetail").description("건물명 상세").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("mountain").description("산 여부").type(JsonFieldType.BOOLEAN).optional(),
+                                fieldWithPath("underground").description("지하 여부").type(JsonFieldType.BOOLEAN).optional(),
+                                fieldWithPath("cohousing").description("공동 주택 여부").type(JsonFieldType.BOOLEAN).optional()
                         )
                         .build())
                 .write());
@@ -274,7 +305,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                 .contentType(MediaType.APPLICATION_JSON));
 
         // then
-        actions.andExpect(status().isOk());
+        actions.andExpect(status().isNoContent());
 
         actions.andDo(new Documentation(tag, "고객 주소 삭제")
                 .parameters(builder -> builder
