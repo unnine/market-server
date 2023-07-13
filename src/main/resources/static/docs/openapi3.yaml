@@ -6,6 +6,837 @@ info:
 servers:
 - url: http://localhost:8080
 tags: []
-paths: {}
+paths:
+  /v1/stores:
+    get:
+      tags:
+      - 가게
+      summary: 가게 목록
+      description: 가게 목록
+      operationId: 가게 목록
+      parameters:
+      - name: page
+        in: query
+        description: 조회 페이지 번호
+        required: true
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 페이지 당 사이즈
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreDto'
+              examples:
+                가게 목록:
+                  value: "[ ]"
+    post:
+      tags:
+      - 가게
+      summary: 가게 등록
+      description: 가게 등록
+      operationId: 가게 등록
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreRegisterDto'
+            examples:
+              가게 등록:
+                value: "{\r\n  \"name\" : \"test store\",\r\n  \"ownerId\" : 1\r\n\
+                  }"
+      responses:
+        "204":
+          description: "204"
+  /v1/member/customers:
+    get:
+      tags:
+      - 고객
+      summary: 고객 목록
+      description: 고객 목록
+      operationId: 고객 목록
+      parameters:
+      - name: page
+        in: query
+        description: 조회 페이지 번호
+        required: true
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 페이지 당 사이즈
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+              examples:
+                고객 목록:
+                  value: "[ ]"
+    post:
+      tags:
+      - 고객
+      summary: 고객 신규 등록
+      description: 고객 신규 등록
+      operationId: 고객 신규 등록
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerRegisterDto'
+            examples:
+              고객 신규 등록:
+                value: "{\r\n  \"email\" : \"test@email.com\",\r\n  \"name\" : \"\
+                  test name\",\r\n  \"phoneNumber\" : \"01012345678\"\r\n}"
+      responses:
+        "204":
+          description: "204"
+  /v1/member/sellers:
+    get:
+      tags:
+      - 판매자
+      summary: 판매자 목록 조회
+      description: 판매자 목록 조회
+      operationId: 판매자 목록 조회
+      parameters:
+      - name: page
+        in: query
+        description: 조회 페이지 번호
+        required: true
+        schema:
+          type: string
+      - name: size
+        in: query
+        description: 페이지 당 사이즈
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SellerDto'
+              examples:
+                판매자 목록 조회:
+                  value: "[ ]"
+    post:
+      tags:
+      - 판매자
+      summary: 판매자 등록
+      description: 판매자 등록
+      operationId: 판매자 등록
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellerRegisterDto'
+            examples:
+              판매자 등록:
+                value: "{\r\n  \"email\" : \"test@email.com\",\r\n  \"name\" : \"\
+                  test seller\",\r\n  \"phoneNumber\" : \"01012345678\"\r\n}"
+      responses:
+        "204":
+          description: "204"
+  /v1/stores/{id}:
+    get:
+      tags:
+      - 가게
+      summary: 가게 상세 정보
+      description: 가게 상세 정보
+      operationId: 가게 상세 정보
+      parameters:
+      - name: id
+        in: path
+        description: 가게 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StoreDto'
+              examples:
+                가게 상세 정보:
+                  value: "{\r\n  \"id\" : null,\r\n  \"name\" : null,\r\n  \"owner\"\
+                    \ : null\r\n}"
+    put:
+      tags:
+      - 가게
+      summary: 가게 정보 수정
+      description: 가게 정보 수정
+      operationId: 가게 정보 수정
+      parameters:
+      - name: id
+        in: path
+        description: 가게 ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StoreModifyDto'
+            examples:
+              가게 정보 수정:
+                value: "{\r\n  \"name\" : \"updated store name\"\r\n}"
+      responses:
+        "204":
+          description: "204"
+    delete:
+      tags:
+      - 가게
+      summary: 가게 삭제
+      description: 가게 삭제
+      operationId: 가게 삭제
+      parameters:
+      - name: id
+        in: path
+        description: 가게 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: "204"
+  /v1/member/customers/{id}:
+    get:
+      tags:
+      - 고객
+      summary: 고객 상세 정보
+      description: 고객 상세 정보
+      operationId: 고객 상세 정보
+      parameters:
+      - name: id
+        in: path
+        description: 고객 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+              examples:
+                고객 상세 정보:
+                  value: "{\r\n  \"id\" : null,\r\n  \"email\" : null,\r\n  \"name\"\
+                    \ : null,\r\n  \"phone\" : null\r\n}"
+    put:
+      tags:
+      - 고객
+      summary: 고객 정보 수정
+      description: 고객 정보 수정
+      operationId: 고객 정보 수정
+      parameters:
+      - name: id
+        in: path
+        description: 고객 ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerModifyDto'
+            examples:
+              고객 정보 수정:
+                value: "{\r\n  \"phoneNumber\" : \"01012345678\"\r\n}"
+      responses:
+        "204":
+          description: "204"
+    delete:
+      tags:
+      - 고객
+      summary: 고객 정보 삭제
+      description: 고객 정보 삭제
+      operationId: 고객 정보 삭제
+      parameters:
+      - name: id
+        in: path
+        description: 고객 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: "204"
+  /v1/member/sellers/{id}:
+    get:
+      tags:
+      - 판매자
+      summary: 판매자 상세 정보
+      description: 판매자 상세 정보
+      operationId: 판매자 상세 정보
+      parameters:
+      - name: id
+        in: path
+        description: 판매자 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerDto'
+              examples:
+                판매자 상세 정보:
+                  value: "{\r\n  \"id\" : null,\r\n  \"email\" : null,\r\n  \"name\"\
+                    \ : null,\r\n  \"phone\" : null\r\n}"
+    put:
+      tags:
+      - 판매자
+      summary: 판매자 정보 수정
+      description: 판매자 정보 수정
+      operationId: 판매자 정보 수정
+      parameters:
+      - name: id
+        in: path
+        description: ""
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SellerModifyDto'
+            examples:
+              판매자 정보 수정:
+                value: "{\r\n  \"phoneNumber\" : \"01098765432\"\r\n}"
+      responses:
+        "204":
+          description: "204"
+    delete:
+      tags:
+      - 판매자
+      summary: 판매자 정보 삭제
+      description: 판매자 정보 삭제
+      operationId: 판매자 정보 삭제
+      parameters:
+      - name: id
+        in: path
+        description: 판매자 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: "204"
+  /v1/store/items/{id}:
+    get:
+      tags:
+      - 상품
+      summary: 상품 상세 정보
+      description: 상품 상세 정보
+      operationId: 상품 상세 정보
+      parameters:
+      - name: id
+        in: path
+        description: 상품 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+    put:
+      tags:
+      - 상품
+      summary: 상품 정보 수정
+      description: 상품 정보 수정
+      operationId: 상품 정보 수정
+      parameters:
+      - name: id
+        in: path
+        description: 상품 ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemModifyDto'
+            examples:
+              상품 정보 수정:
+                value: "{\r\n  \"name\" : \"test item2\",\r\n  \"price\" : 2000\r\n\
+                  }"
+      responses:
+        "204":
+          description: "204"
+    delete:
+      tags:
+      - 상품
+      summary: 상품 삭제
+      description: 상품 삭제
+      operationId: 상품 삭제
+      parameters:
+      - name: id
+        in: path
+        description: 상품 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: "204"
+  /v1/stores/{id}/items:
+    get:
+      tags:
+      - 가게
+      summary: 상품 목록
+      description: 상품 목록
+      operationId: 상품 목록
+      parameters:
+      - name: id
+        in: path
+        description: 가게 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1-member-customers-id-addresses486549215'
+              examples:
+                상품 목록:
+                  value: "[ ]"
+    post:
+      tags:
+      - 가게
+      summary: 상품 등록
+      description: 상품 등록
+      operationId: 상품 등록
+      parameters:
+      - name: id
+        in: path
+        description: 가게 ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ItemRegisterDto'
+            examples:
+              상품 등록:
+                value: "{\r\n  \"name\" : \"test item\",\r\n  \"price\" : 1000\r\n\
+                  }"
+      responses:
+        "204":
+          description: "204"
+  /v1/member/customers/{id}/addresses:
+    get:
+      tags:
+      - 고객
+      summary: 주소 목록 조회
+      description: 주소 목록 조회
+      operationId: 주소 목록 조회
+      parameters:
+      - name: id
+        in: path
+        description: 고객 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: "200"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/v1-member-customers-id-addresses486549215'
+              examples:
+                주소 목록 조회:
+                  value: "[ ]"
+    post:
+      tags:
+      - 고객
+      summary: 고객 주소 등록
+      description: 고객 주소 등록
+      operationId: 고객 주소 등록
+      parameters:
+      - name: id
+        in: path
+        description: 고객 ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAddressRegisterDto'
+            examples:
+              고객 주소 등록:
+                value: "{\r\n  \"roadAddress\" : \"test road address\",\r\n  \"roadEngAddress\"\
+                  \ : null,\r\n  \"roadPartAddress\" : null,\r\n  \"roadReferenceAddress\"\
+                  \ : null,\r\n  \"manualAddress\" : \"manually address\",\r\n  \"\
+                  jibunAddress\" : null,\r\n  \"controlCenterAddress\" : null,\r\n\
+                  \  \"zipNo\" : null,\r\n  \"siName\" : null,\r\n  \"guName\" : null,\r\
+                  \n  \"dongName\" : null,\r\n  \"dongNo\" : null,\r\n  \"liName\"\
+                  \ : null,\r\n  \"roadName\" : null,\r\n  \"districtCode\" : null,\r\
+                  \n  \"roadCode\" : null,\r\n  \"buildingManagementCode\" : null,\r\
+                  \n  \"buildingName\" : null,\r\n  \"buildingNameDetail\" : null,\r\
+                  \n  \"mountain\" : false,\r\n  \"underground\" : false,\r\n  \"\
+                  cohousing\" : false\r\n}"
+      responses:
+        "204":
+          description: "204"
+  /v1/member/customers/{id}/addresses/{addressId}:
+    put:
+      tags:
+      - 고객
+      summary: 고객 주소 수정
+      description: 고객 주소 수정
+      operationId: 고객 주소 수정
+      parameters:
+      - name: id
+        in: path
+        description: 고객 ID
+        required: true
+        schema:
+          type: string
+      - name: addressId
+        in: path
+        description: 주소 ID
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CustomerAddressModifyDto'
+            examples:
+              고객 주소 수정:
+                value: "{\r\n  \"roadAddress\" : \"test road address\",\r\n  \"roadEngAddress\"\
+                  \ : null,\r\n  \"roadPartAddress\" : null,\r\n  \"roadReferenceAddress\"\
+                  \ : null,\r\n  \"manualAddress\" : \"manually address\",\r\n  \"\
+                  jibunAddress\" : null,\r\n  \"controlCenterAddress\" : null,\r\n\
+                  \  \"zipNo\" : null,\r\n  \"siName\" : null,\r\n  \"guName\" : null,\r\
+                  \n  \"dongName\" : null,\r\n  \"dongNo\" : null,\r\n  \"liName\"\
+                  \ : null,\r\n  \"roadName\" : null,\r\n  \"districtCode\" : null,\r\
+                  \n  \"roadCode\" : null,\r\n  \"buildingManagementCode\" : null,\r\
+                  \n  \"buildingName\" : null,\r\n  \"buildingNameDetail\" : null,\r\
+                  \n  \"mountain\" : false,\r\n  \"underground\" : false,\r\n  \"\
+                  cohousing\" : false\r\n}"
+      responses:
+        "204":
+          description: "204"
+    delete:
+      tags:
+      - 고객
+      summary: 고객 주소 삭제
+      description: 고객 주소 삭제
+      operationId: 고객 주소 삭제
+      parameters:
+      - name: id
+        in: path
+        description: 고객 ID
+        required: true
+        schema:
+          type: string
+      - name: addressId
+        in: path
+        description: 주소 ID
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: "204"
 components:
-  schemas: {}
+  schemas:
+    StoreRegisterDto:
+      title: StoreRegisterDto
+      type: object
+      properties:
+        name:
+          type: string
+          description: 이름
+        ownerId:
+          type: number
+          description: 판매자 ID
+    StoreModifyDto:
+      title: StoreModifyDto
+      type: object
+      properties:
+        name:
+          type: string
+          description: 이름
+    CustomerAddressModifyDto:
+      title: CustomerAddressModifyDto
+      type: object
+      properties:
+        cohousing:
+          type: boolean
+          description: 공동 주택 여부
+        dongName:
+          type: string
+          description: 읍면동
+        guName:
+          type: string
+          description: 군구
+        manualAddress:
+          type: string
+          description: 직접 입력 주소
+        districtCode:
+          type: string
+          description: 행정구역 코드
+        roadEngAddress:
+          type: string
+          description: 도로명 영문 주소
+        roadReferenceAddress:
+          type: string
+          description: 참고 주소
+        roadPartAddress:
+          type: string
+          description: 도로명 주소
+        siName:
+          type: string
+          description: 시도
+        jibunAddress:
+          type: string
+          description: 지번 주소
+        zipNo:
+          type: string
+          description: 우편 번호
+        controlCenterAddress:
+          type: string
+          description: 관할 센터 주소
+        roadCode:
+          type: string
+          description: 도로명 코드
+        buildingManagementCode:
+          type: string
+          description: 건물 관리 번호
+        roadName:
+          type: string
+          description: 도로명
+        buildingName:
+          type: string
+          description: 건물명
+        dongNo:
+          type: string
+          description: 읍면동 일련번호
+        mountain:
+          type: boolean
+          description: 산 여부
+        underground:
+          type: boolean
+          description: 지하 여부
+        roadAddress:
+          type: string
+          description: 도로명 전체 주소
+        buildingNameDetail:
+          type: string
+          description: 건물명 상세
+        liName:
+          type: string
+          description: 법정리
+    CustomerDto:
+      title: CustomerDto
+      type: object
+      properties:
+        phone:
+          type: object
+          description: 연락처
+        name:
+          type: string
+          description: 이름
+        id:
+          type: number
+          description: 고객 ID
+        email:
+          type: string
+          description: 이메일
+    ItemModifyDto:
+      title: ItemModifyDto
+      type: object
+      properties:
+        price:
+          type: number
+          description: 가격
+        name:
+          type: string
+          description: 상품명
+    CustomerRegisterDto:
+      title: CustomerRegisterDto
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: 휴대전화 번호
+        name:
+          type: string
+          description: 이름
+        email:
+          type: string
+          description: 이메일
+    CustomerAddressRegisterDto:
+      title: CustomerAddressRegisterDto
+      type: object
+      properties:
+        cohousing:
+          type: boolean
+          description: 공동 주택 여부
+        dongName:
+          type: string
+          description: 읍면동
+        guName:
+          type: string
+          description: 군구
+        manualAddress:
+          type: string
+          description: 직접 입력 주소
+        districtCode:
+          type: string
+          description: 행정구역 코드
+        roadEngAddress:
+          type: string
+          description: 도로명 영문 주소
+        roadReferenceAddress:
+          type: string
+          description: 참고 주소
+        roadPartAddress:
+          type: string
+          description: 도로명 주소
+        siName:
+          type: string
+          description: 시도
+        jibunAddress:
+          type: string
+          description: 지번 주소
+        zipNo:
+          type: string
+          description: 우편 번호
+        controlCenterAddress:
+          type: string
+          description: 관할 센터 주소
+        roadCode:
+          type: string
+          description: 도로명 코드
+        buildingManagementCode:
+          type: string
+          description: 건물 관리 번호
+        roadName:
+          type: string
+          description: 도로명
+        buildingName:
+          type: string
+          description: 건물명
+        dongNo:
+          type: string
+          description: 읍면동 일련번호
+        mountain:
+          type: boolean
+          description: 산 여부
+        underground:
+          type: boolean
+          description: 지하 여부
+        roadAddress:
+          type: string
+          description: 도로명 전체 주소
+        buildingNameDetail:
+          type: string
+          description: 건물명 상세
+        liName:
+          type: string
+          description: 법정리
+    CustomerModifyDto:
+      title: CustomerModifyDto
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: 휴대전화 번호
+    StoreDto:
+      title: StoreDto
+      type: object
+      properties:
+        owner:
+          type: object
+          description: 판매자
+        name:
+          type: string
+          description: 이름
+        id:
+          type: number
+          description: 가게 ID
+    SellerDto:
+      title: SellerDto
+      type: object
+      properties:
+        phone:
+          type: object
+          description: 연락처
+        name:
+          type: string
+          description: 이름
+        id:
+          type: number
+          description: 판매자 ID
+        email:
+          type: string
+          description: 이메일
+    SellerModifyDto:
+      title: SellerModifyDto
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: 연락처
+    SellerRegisterDto:
+      title: SellerRegisterDto
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: 모바일폰 번호
+        name:
+          type: string
+          description: 이름
+        email:
+          type: string
+          description: 이메일
+    ItemRegisterDto:
+      title: ItemRegisterDto
+      type: object
+      properties:
+        price:
+          type: number
+          description: 가격
+        name:
+          type: string
+          description: 상품명
+    v1-member-customers-id-addresses486549215:
+      type: object

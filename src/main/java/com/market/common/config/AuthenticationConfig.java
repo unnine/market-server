@@ -1,42 +1,32 @@
 package com.market.common.config;
 
+import com.market.auth.config.SecurityAuthenticationConfigurer;
+import com.market.auth.config.SecurityAuthorizationConfigurer;
+import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
-import org.springframework.security.config.annotation.web.AbstractRequestMatcherRegistry;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.*;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
-import org.springframework.web.cors.CorsConfiguration;
-import org.springframework.web.cors.CorsConfigurationSource;
-import org.springframework.web.cors.CorsUtils;
-import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-
-import java.util.Arrays;
-import java.util.List;
 
 @Configuration
+@RequiredArgsConstructor
 public class AuthenticationConfig {
+
+    private final SecurityAuthenticationConfigurer authenticationConfigurer;
+    private final SecurityAuthorizationConfigurer authorizationConfigurer;
+
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return web -> web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
 
     @Bean
     public SecurityFilterChain authenticationFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .formLogin(FormLoginConfigurer::disable)
-                .httpBasic(HttpBasicConfigurer::disable)
-                .csrf(CsrfConfigurer::disable)
-                .rememberMe(RememberMeConfigurer::disable)
-                .cors(CorsConfigurer::disable)
-                .authorizeHttpRequests(matcherRegistry -> matcherRegistry
-                        .anyRequest().authenticated()
-                )
-                .sessionManagement(configurer -> configurer
-                        .sessionFixation(SessionManagementConfigurer.SessionFixationConfigurer::changeSessionId)
-                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
-                )
-                .build();
+        authenticationConfigurer.config(http);
+        authorizationConfigurer.config(http);
+        return http.build();
     }
 
 }
