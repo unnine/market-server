@@ -2,7 +2,7 @@ package com.market.member.application;
 
 import com.market.member.domain.entity.Seller;
 import com.market.member.domain.repository.SellerRepository;
-import com.market.member.domain.service.SellerService;
+import com.market.member.domain.service.MemberService;
 import com.market.member.domain.vo.Phone;
 import com.market.member.dto.SellerDto;
 import com.market.member.dto.SellerModifyDto;
@@ -24,7 +24,7 @@ public class SellerApplicationService {
     private final SellerMapper sellerMapper;
     private final PhoneMapper phoneMapper;
 
-    private final SellerService sellerService;
+    private final MemberService memberService;
 
     private final SellerRepository sellerRepository;
 
@@ -41,7 +41,7 @@ public class SellerApplicationService {
     }
 
     public void signUpSeller(SellerRegisterDto param) {
-        if (sellerService.existsEmail(param.getEmail())) {
+        if (memberService.existsEmail(param.getEmail())) {
             throw new DuplicateKeyException("Already exists email.");
         }
         Seller seller = sellerMapper.toEntity(param);
@@ -52,7 +52,7 @@ public class SellerApplicationService {
         Seller seller = sellerRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
         Phone phone = phoneMapper.toEntity(param.getPhoneNumber());
-        seller.updateInfo(phone);
+        seller.getInfo().updatePhone(phone);
         sellerRepository.save(seller);
     }
 

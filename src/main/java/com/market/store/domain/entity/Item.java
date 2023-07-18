@@ -29,6 +29,7 @@ public class Item extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     Store store;
 
+    @Builder.Default
     @OneToMany(mappedBy = "item")
     List<CartItem> cartItems = new ArrayList<>();
 

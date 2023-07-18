@@ -17,17 +17,25 @@ public class SecurityAuthenticationConfigurer implements SecurityConfigurer {
     @Override
     public void config(HttpSecurity http) throws Exception {
         disableConfig(http);
+        loginConfig(http);
         logoutConfig(http);
         sessionConfig(http);
     }
 
     private void disableConfig(HttpSecurity http) throws Exception {
         http
-                .formLogin(FormLoginConfigurer::disable)
                 .httpBasic(HttpBasicConfigurer::disable)
                 .csrf(CsrfConfigurer::disable)
                 .rememberMe(RememberMeConfigurer::disable)
                 .cors(CorsConfigurer::disable);
+    }
+
+    private void loginConfig(HttpSecurity http) throws Exception {
+        http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+                .loginPage(loginUrl)
+                .usernameParameter("username")
+                .passwordParameter("password")
+        );
     }
 
     private void logoutConfig(HttpSecurity http) throws Exception {

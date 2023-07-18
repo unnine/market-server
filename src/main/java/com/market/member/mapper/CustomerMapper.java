@@ -8,13 +8,12 @@ import com.market.member.dto.CustomerRegisterDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(
-        config = BaseMapperConfig.class,
-        uses = { PhoneMapper.class }
-)
+@Mapper(config = BaseMapperConfig.class, uses = {
+        MemberInfoMapper.class
+})
 public interface CustomerMapper extends BaseMapper<Customer, CustomerDto> {
 
-    @Mapping(target = "phone", source = "phoneNumber")
+    @Mapping(target = "info", source = "dto")
     Customer toEntity(CustomerRegisterDto dto);
 
 }

@@ -1,6 +1,7 @@
 package com.market.member.domain.entity;
 
 import com.market.common.domain.entity.BaseEntity;
+import com.market.member.domain.vo.MemberInfo;
 import com.market.member.domain.vo.Phone;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
@@ -25,15 +26,8 @@ public class Customer extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    @Email
-    String email;
-
-    @NotBlank
-    String name;
-
-    @NotNull
     @Embedded
-    Phone phone;
+    MemberInfo info;
 
     @JoinColumn(name = "cart_id")
     @OneToOne(fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
@@ -43,7 +37,7 @@ public class Customer extends BaseEntity {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     List<CustomerAddress> addresses = new ArrayList<>();
 
-    public void updateInfo(Phone phone) {
-        this.phone = phone;
+    public void updateInfo(MemberInfo info) {
+        this.info = info;
     }
 }

@@ -90,6 +90,8 @@ class CustomerControllerTest extends BaseWebMvcTest {
                                 fieldWithPath("id").description("고객 ID").type(JsonFieldType.NUMBER).optional(),
                                 fieldWithPath("email").description("이메일").type(JsonFieldType.STRING).optional(),
                                 fieldWithPath("name").description("이름").type(JsonFieldType.STRING).optional(),
+                                fieldWithPath("lock").description("잠금 여부").type(JsonFieldType.BOOLEAN),
+                                fieldWithPath("enable").description("계정 활성화 여부").type(JsonFieldType.BOOLEAN),
                                 subsectionWithPath("phone").description("연락처").type(JsonFieldType.OBJECT).optional()
                         )
                         .build())
@@ -101,6 +103,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
         // given
         CustomerRegisterDto param = CustomerRegisterDto.builder()
                 .name("test name")
+                .password("test password")
                 .email("test@email.com")
                 .phoneNumber("01012345678")
                 .build();
@@ -119,6 +122,7 @@ class CustomerControllerTest extends BaseWebMvcTest {
                         .requestSchema(schema(CustomerRegisterDto.class.getSimpleName()))
                         .requestFields(
                                 fieldWithPath("email").description("이메일").type(JsonFieldType.STRING),
+                                fieldWithPath("password").description("비밀번호").type(JsonFieldType.STRING),
                                 fieldWithPath("name").description("이름").type(JsonFieldType.STRING),
                                 fieldWithPath("phoneNumber").description("휴대전화 번호").type(JsonFieldType.STRING)
                         )

@@ -1,6 +1,7 @@
 package com.market.member.domain.entity;
 
 import com.market.common.domain.entity.BaseEntity;
+import com.market.member.domain.vo.MemberInfo;
 import com.market.member.domain.vo.Phone;
 import com.market.store.domain.entity.Store;
 import jakarta.persistence.*;
@@ -20,19 +21,11 @@ public class Seller extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
-    String email;
-
-    String name;
-
     @Embedded
-    Phone phone;
+    MemberInfo info;
 
     @Builder.Default
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     List<Store> stores = new ArrayList<>();
-
-    public void updateInfo(Phone phone) {
-        this.phone = phone;
-    }
 
 }

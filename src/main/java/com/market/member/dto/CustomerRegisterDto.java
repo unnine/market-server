@@ -21,6 +21,9 @@ public class CustomerRegisterDto {
     @NotBlank
     String name;
 
+    @NotBlank
+    String password;
+
     @NotNull
     String phoneNumber;
 

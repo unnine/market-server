@@ -99,7 +99,8 @@ paths:
             examples:
               고객 신규 등록:
                 value: "{\r\n  \"email\" : \"test@email.com\",\r\n  \"name\" : \"\
-                  test name\",\r\n  \"phoneNumber\" : \"01012345678\"\r\n}"
+                  test name\",\r\n  \"password\" : \"test password\",\r\n  \"phoneNumber\"\
+                  \ : \"01012345678\"\r\n}"
       responses:
         "204":
           description: "204"
@@ -240,7 +241,8 @@ paths:
               examples:
                 고객 상세 정보:
                   value: "{\r\n  \"id\" : null,\r\n  \"email\" : null,\r\n  \"name\"\
-                    \ : null,\r\n  \"phone\" : null\r\n}"
+                    \ : null,\r\n  \"phone\" : null,\r\n  \"lock\" : false,\r\n  \"\
+                    enable\" : false\r\n}"
     put:
       tags:
       - 고객
@@ -689,19 +691,6 @@ components:
         name:
           type: string
           description: 상품명
-    CustomerRegisterDto:
-      title: CustomerRegisterDto
-      type: object
-      properties:
-        phoneNumber:
-          type: string
-          description: 휴대전화 번호
-        name:
-          type: string
-          description: 이름
-        email:
-          type: string
-          description: 이메일
     CustomerAddressRegisterDto:
       title: CustomerAddressRegisterDto
       type: object
@@ -838,5 +827,21 @@ components:
         name:
           type: string
           description: 상품명
+    CustomerRegisterDto:
+      title: CustomerRegisterDto
+      type: object
+      properties:
+        password:
+          type: string
+          description: 비밀번호
+        phoneNumber:
+          type: string
+          description: 휴대전화 번호
+        name:
+          type: string
+          description: 이름
+        email:
+          type: string
+          description: 이메일
     v1-member-customers-id-addresses486549215:
       type: object

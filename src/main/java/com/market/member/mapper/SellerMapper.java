@@ -12,16 +12,16 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(
-        config = BaseMapperConfig.class,
-        uses = { StoreMapper.class, PhoneMapper.class }
-)
+@Mapper(config = BaseMapperConfig.class, uses = {
+        StoreMapper.class,
+        MemberInfoMapper.class
+})
 public interface SellerMapper extends BaseMapper<Seller, SellerDto> {
 
     @Override
     Seller toEntity(SellerDto dto);
 
-    @Mapping(target = "phone", source = "phoneNumber")
+    @Mapping(target = "info", source = "dto")
     Seller toEntity(SellerRegisterDto dto);
 
 }

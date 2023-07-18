@@ -22,6 +22,7 @@ public class Cart extends BaseEntity {
     @OneToOne(mappedBy = "cart")
     Customer customer;
 
+    @Builder.Default
     @OneToMany(mappedBy = "cart")
     List<CartItem> cartItems = new ArrayList<>();
 

@@ -5,7 +5,7 @@ import com.market.member.domain.entity.Customer;
 import com.market.member.domain.entity.CustomerAddress;
 import com.market.member.domain.repository.CustomerAddressRepository;
 import com.market.member.domain.repository.CustomerRepository;
-import com.market.member.domain.service.CustomerService;
+import com.market.member.domain.service.MemberService;
 import com.market.member.domain.vo.Phone;
 import com.market.member.dto.*;
 import com.market.member.mapper.CustomerAddressMapper;
@@ -27,7 +27,7 @@ public class CustomerApplicationService {
     private final CustomerAddressMapper customerAddressMapper;
     private final PhoneMapper phoneMapper;
 
-    private final CustomerService customerService;
+    private final MemberService memberService;
 
     private final CustomerRepository customerRepository;
     private final CustomerAddressRepository customerAddressRepository;
@@ -45,7 +45,7 @@ public class CustomerApplicationService {
     }
 
     public void signUpCustomer(CustomerRegisterDto param) {
-        if (customerService.existsEmail(param.getEmail())) {
+        if (memberService.existsEmail(param.getEmail())) {
             throw new DuplicateKeyException("Already exists email.");
         }
         Customer newCustomer = customerMapper.toEntity(param);
@@ -56,7 +56,7 @@ public class CustomerApplicationService {
         Customer customer = customerRepository.findById(id)
                 .orElseThrow(() -> new EmptyResultDataAccessException(1));
         Phone phone = phoneMapper.toEntity(param.getPhoneNumber());
-        customer.updateInfo(phone);
+        customer.getInfo().updatePhone(phone);
         customerRepository.save(customer);
     }
 

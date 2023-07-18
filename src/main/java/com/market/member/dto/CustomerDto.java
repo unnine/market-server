@@ -16,4 +16,8 @@ public class CustomerDto {
 
     Phone phone;
 
+    boolean lock;
+
+    boolean enable;
+
 }
