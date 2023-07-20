@@ -4,6 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.*;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.logout.HeaderWriterLogoutHandler;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.header.writers.ClearSiteDataHeaderWriter;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -12,7 +15,6 @@ public class SecurityAuthenticationConfigurer implements SecurityConfigurer {
 
     private final String loginUrl = "/login";
     private final String logoutUrl = "/logout";
-    private final String sessionIdCookieName = "JSESSIONID";
 
     @Override
     public void config(HttpSecurity http) throws Exception {
@@ -20,6 +22,8 @@ public class SecurityAuthenticationConfigurer implements SecurityConfigurer {
         loginConfig(http);
         logoutConfig(http);
         sessionConfig(http);
+
+        http.securityContext(securityContext -> securityContext.securityContextRepository(new HttpSessionSecurityContextRepository()));
     }
 
     private void disableConfig(HttpSecurity http) throws Exception {
@@ -42,7 +46,7 @@ public class SecurityAuthenticationConfigurer implements SecurityConfigurer {
         http.logout(httpSecurityLogoutConfigurer -> httpSecurityLogoutConfigurer
                 .logoutUrl(logoutUrl)
                 .logoutSuccessUrl(loginUrl)
-                .deleteCookies(sessionIdCookieName)
+                .addLogoutHandler(new HeaderWriterLogoutHandler(new ClearSiteDataHeaderWriter(ClearSiteDataHeaderWriter.Directive.COOKIES)))
         );
     }
 

@@ -18,6 +18,11 @@ public class SecurityUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         MemberInfo info = memberService.findInfoByEmail(username);
+
+        if (info == null) {
+            throw new UsernameNotFoundException("Not found user matched username. '" + username + "'");
+        }
+
         return new SecurityUserDetails(info);
     }
 }
