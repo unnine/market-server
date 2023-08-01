@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/v1/store/items")
+@RequestMapping("/api/v1/store/items")
 @RequiredArgsConstructor
 public class ItemController {
 

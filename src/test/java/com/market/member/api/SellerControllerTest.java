@@ -32,7 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class SellerControllerTest extends BaseWebMvcTest {
 
     private final String tag = "판매자";
-    private final String mappingPath = "/v1/member/sellers";
+    private final String mappingPath = "/api/v1/member/sellers";
 
     @MockBean
     private SellerApplicationService sellerApplicationService;

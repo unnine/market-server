@@ -1,6 +1,10 @@
+server:
+  port: 7000
+
 spring:
   profiles:
     active: local
+
 
 springdoc:
   swagger-ui:

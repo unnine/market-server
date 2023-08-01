@@ -1,11 +1,13 @@
 package com.market.member.application;
 
 import com.market.common.domain.vo.Address;
+import com.market.common.util.Cipher;
 import com.market.member.domain.entity.Customer;
 import com.market.member.domain.entity.CustomerAddress;
 import com.market.member.domain.repository.CustomerAddressRepository;
 import com.market.member.domain.repository.CustomerRepository;
 import com.market.member.domain.service.MemberService;
+import com.market.member.domain.vo.MemberInfo;
 import com.market.member.domain.vo.Phone;
 import com.market.member.dto.*;
 import com.market.member.mapper.CustomerAddressMapper;
@@ -49,6 +51,9 @@ public class CustomerApplicationService {
             throw new DuplicateKeyException("Already exists email.");
         }
         Customer newCustomer = customerMapper.toEntity(param);
+        MemberInfo memberInfo = newCustomer.getInfo();
+        String encryptedPassword = Cipher.encode(memberInfo.getPassword());
+        memberInfo.updatePassword(encryptedPassword);
         customerRepository.save(newCustomer);
     }
 

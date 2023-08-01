@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-form-wrapper {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .login-form-wrapper form div {
+            margin-bottom: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-form-wrapper">
+        <form action="/login" method="post">
+            <div>
+                <input type="text" name="username" placeholder="아이디" />
+            </div>
+
+            <div>
+                <input type="password" name="password" placeholder="비밀번호" />
+            </div>
+
+            <div>
+                <input type="submit" value="로그인">
+            </div>
+        </form>
+
+        <div>
+            <a href="/view/customer/sign-up">고객 회원가입</a>
+        </div>
+        <div>
+            <a href="/view/seller/sign-up">판매자 회원가입</a>
+        </div>
+    </div>
+
+</body>
+</html>

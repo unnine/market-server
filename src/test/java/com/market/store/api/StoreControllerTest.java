@@ -33,7 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class StoreControllerTest extends BaseWebMvcTest {
 
     private final String tag = "가게";
-    private final String mappingPath = "/v1/stores";
+    private final String mappingPath = "/api/v1/stores";
 
     @MockBean
     private StoreApplicationService storeApplicationService;

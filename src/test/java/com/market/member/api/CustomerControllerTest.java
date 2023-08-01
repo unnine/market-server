@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CustomerControllerTest extends BaseWebMvcTest {
 
     private final String tag = "고객";
-    private final String mappingPath = "/v1/member/customers";
+    private final String mappingPath = "/api/v1/member/customers";
 
     @MockBean
     private CustomerApplicationService customerApplicationService;

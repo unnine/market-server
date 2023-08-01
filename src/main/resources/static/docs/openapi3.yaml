@@ -7,7 +7,7 @@ servers:
 - url: http://localhost:8080
 tags: []
 paths:
-  /v1/stores:
+  /api/v1/stores:
     get:
       tags:
       - 가게
@@ -55,7 +55,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/member/customers:
+  /api/v1/member/customers:
     get:
       tags:
       - 고객
@@ -104,7 +104,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/member/sellers:
+  /api/v1/member/sellers:
     get:
       tags:
       - 판매자
@@ -152,7 +152,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/stores/{id}:
+  /api/v1/stores/{id}:
     get:
       tags:
       - 가게
@@ -217,7 +217,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/member/customers/{id}:
+  /api/v1/member/customers/{id}:
     get:
       tags:
       - 고객
@@ -283,7 +283,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/member/sellers/{id}:
+  /api/v1/member/sellers/{id}:
     get:
       tags:
       - 판매자
@@ -348,7 +348,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/store/items/{id}:
+  /api/v1/store/items/{id}:
     get:
       tags:
       - 상품
@@ -406,7 +406,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/stores/{id}/items:
+  /api/v1/stores/{id}/items:
     get:
       tags:
       - 가게
@@ -426,7 +426,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/v1-member-customers-id-addresses486549215'
+                $ref: '#/components/schemas/api-v1-member-customers-id-addresses486549215'
               examples:
                 상품 목록:
                   value: "[ ]"
@@ -455,7 +455,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/member/customers/{id}/addresses:
+  /api/v1/member/customers/{id}/addresses:
     get:
       tags:
       - 고객
@@ -475,7 +475,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/v1-member-customers-id-addresses486549215'
+                $ref: '#/components/schemas/api-v1-member-customers-id-addresses486549215'
               examples:
                 주소 목록 조회:
                   value: "[ ]"
@@ -513,7 +513,7 @@ paths:
       responses:
         "204":
           description: "204"
-  /v1/member/customers/{id}/addresses/{addressId}:
+  /api/v1/member/customers/{id}/addresses/{addressId}:
     put:
       tags:
       - 고객
@@ -843,5 +843,5 @@ components:
         email:
           type: string
           description: 이메일
-    v1-member-customers-id-addresses486549215:
+    api-v1-member-customers-id-addresses486549215:
       type: object

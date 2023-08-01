@@ -6,10 +6,7 @@ import com.market.member.domain.repository.CustomerRepository;
 import com.market.member.domain.repository.SellerRepository;
 import com.market.member.domain.vo.MemberInfo;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +29,7 @@ public class MemberService {
         if (seller != null) {
             return seller.getInfo();
         }
-        throw new EmptyResultDataAccessException(1);
+        return new MemberInfo();
     }
 
 }

@@ -37,7 +37,4 @@ public class Customer extends BaseEntity {
     @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)
     List<CustomerAddress> addresses = new ArrayList<>();
 
-    public void updateInfo(MemberInfo info) {
-        this.info = info;
-    }
 }

@@ -19,10 +19,9 @@ public class SecurityUserDetailsService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         MemberInfo info = memberService.findInfoByEmail(username);
 
-        if (info == null) {
+        if (info.isEmpty()) {
             throw new UsernameNotFoundException("Not found user matched username. '" + username + "'");
         }
-
         return new SecurityUserDetails(info);
     }
 }
