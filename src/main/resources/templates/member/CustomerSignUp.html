@@ -1,10 +1,32 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/BaseLayout}"
+      layout:fragment="content"
+>
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
-고객 Join Form
+    <form action="/api/v1/member/customers" method="post">
+        <label for="email">이메일</label>
+        <input type="text" id="email" name="email" />
+
+        <label for="name">닉네임</label>
+        <input type="text" id="name" name="name" />
+
+        <label for="password">비밀번호</label>
+        <input type="password" id="password" name="password" />
+
+        <label for="phone">연락처</label>
+        <input type="tel" id="phone" name="phoneNumber" />
+
+        <input type="submit" value="가입하기" />
+    </form>
 </body>
+<script>
+console.log(FETCH);
+</script>
 </html>

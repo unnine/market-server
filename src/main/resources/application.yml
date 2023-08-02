@@ -5,7 +5,6 @@ spring:
   profiles:
     active: local
 
-
 springdoc:
   swagger-ui:
     url: /docs/openapi3.yaml
